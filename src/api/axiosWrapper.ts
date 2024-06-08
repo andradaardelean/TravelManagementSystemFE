@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {message} from "antd";
+import { message } from "antd";
 
 const instance = axios.create({
     baseURL: 'http://localhost:8083/api',
@@ -32,8 +32,8 @@ instance.interceptors.response.use(
         message.error(error?.response?.data?.message ?? error?.response?.data ?? error.toString());
         console.log(error)
         if (error?.response?.status === 401) {
-            // localStorage.clear();
-            // window.location.href = "/";
+            localStorage.clear();
+            window.location.href = "/";
         }
         return Promise.reject(error);
     }
