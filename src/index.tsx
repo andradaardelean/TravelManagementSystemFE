@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 
 const queryClient = new QueryClient();
 
-const redirect_uri = 'http://localhost:3000/overview';
+const redirect_uri = 'https://travelmanagementsystem.onrender.com/overview';
 
 
 root.render(
