@@ -1,9 +1,9 @@
-import {Button, Col, Row, Table} from "antd";
+import {Button, Col, message, Row, Table} from "antd";
 import {useDeleteBooking, useGetAllBookings} from "../../hooks/booking.hooks";
 import AdminLayout from "../../components/layouts/AdminLayout";
 
 const AdminBookingPage = () => {
-    const {data: bookings, isLoading, isFetching} = useGetAllBookings();
+    const {data: bookings, isLoading, isFetching, refetch} = useGetAllBookings();
 
     const {mutate: cancelBooking} = useDeleteBooking();
 
@@ -24,12 +24,15 @@ const AdminBookingPage = () => {
             key: 'passenger',
         },
         {
-            title: "Actions",
+            title: "Action",
             key: "actions",
             render: (record: any) => (
                 <Row justify="space-between">
                     <Col>
-                        <Button danger onClick={() => cancelBooking(record.id)}>Cancel</Button>
+                        <Button danger onClick={() => cancelBooking(record.id).then(() => {
+                            message.success("Booking deleted successfully!");
+                            refetch();
+                        })}>Delete</Button>
                     </Col>
                 </Row>
             ),

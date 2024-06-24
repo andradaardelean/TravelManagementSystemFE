@@ -4,6 +4,7 @@ import {Route} from "../types/interfaces/Route";
 import {SearchRouteArgs} from "../types/interfaces/HooksArgs/SearchRouteArgs";
 import {AddRouteArgs} from "../types/interfaces/HooksArgs/AddRouteArgs";
 import {SearchResult} from "../types/interfaces/SeachResults";
+import {DeleteRouteArgs} from "../types/interfaces/HooksArgs/DeleteRouteArgs";
 
 export const useAddRoute = () => {
     const mutation = useMutation<void, unknown, AddRouteArgs, unknown>(async (route: AddRouteArgs) => {
@@ -18,14 +19,17 @@ export const useAddRoute = () => {
 }
 
 export const useRoutes = (
-    args: SearchRouteArgs,
+    args: SearchRouteArgs, ...options: any
 ): UseQueryResult<SearchResult[], unknown> => {
     return useQuery({
         queryKey: ['routes'],
         queryFn: async (): Promise<SearchResult[]> => {
             return await getRoutes(args);
         },
-        retry: false
+        retry: false,
+        staleTime: 1000 * 60 * 5,
+        cacheTime: 1000 * 60 * 5,
+        ...options
     })
 }
 
@@ -48,6 +52,8 @@ export const useRoutesByCompany = (
         queryFn: async () => {
             return await getRoutesByCompany(company);
         },
+        staleTime: 1000 * 60 * 5,
+        cacheTime: 1000 * 60 * 5,
     })
 }
 
@@ -64,12 +70,12 @@ export const useEditRoute = () => {
 }
 
 export const useDeleteRoute = () => {
-    const mutation = useMutation<void, unknown, string, unknown>(async (routeId: string) => {
-        await deleteRoute(routeId);
+    const mutation = useMutation<void, unknown, DeleteRouteArgs, unknown>(async (args: DeleteRouteArgs) => {
+        await deleteRoute(args);
     });
 
-    const deleteRouteMutation = async (routeId: string) => {
-        await mutation.mutateAsync(routeId);
+    const deleteRouteMutation = async (args: DeleteRouteArgs) => {
+        await mutation.mutateAsync(args);
     };
 
     return {mutate: deleteRouteMutation};
@@ -81,5 +87,7 @@ export const useAllRoutes = () => {
         queryFn: async () => {
             return await getAllRoutes();
         },
+        staleTime: 1000 * 60 * 5,
+        cacheTime: 1000 * 60 * 5,
     })
 }

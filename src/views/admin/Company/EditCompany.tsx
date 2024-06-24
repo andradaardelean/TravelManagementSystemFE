@@ -46,16 +46,16 @@ const EditCompanyPage = () => {
             <h2>Edit Company</h2>
             <Form onFinish={handleSubmit} layout="vertical">
                 <Form.Item label="Name" required>
-                    <Input name="name" value={formData.name} onChange={handleInputChange}/>
+                    <Input name="name" value={formData.name} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Description">
-                    <Input name="description" value={formData.description} onChange={handleInputChange}/>
+                    <Input name="description" value={formData.description} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Owner Name" required>
-                    <Input name="ownerName" value={formData.ownerName} onChange={handleInputChange}/>
+                    <Input name="ownerName" value={formData.ownerName} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Owner Email" required>
-                    <Input name="ownerEmail" value={formData.ownerEmail} onChange={handleInputChange}/>
+                    <Input name="ownerEmail" value={formData.ownerEmail} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Button type="primary" htmlType="submit">Update Company</Button>
             </Form>

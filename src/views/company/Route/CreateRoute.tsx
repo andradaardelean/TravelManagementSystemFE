@@ -1,4 +1,4 @@
-import {Button, DatePicker, Form, Input, InputNumber, Select, SelectProps, Switch, Typography} from 'antd';
+import {Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, SelectProps, Switch, Typography} from 'antd';
 import {useState} from 'react';
 import {useAddRoute} from "../../../hooks/routes.hooks";
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
@@ -140,11 +140,13 @@ const CreateRoutePage = () => {
                 name="route_form"
                 onFinish={onFinish}
             >
+                <Row>
+                    <Col span={12}>
                 <Form.Item
                     name="startLocation"
                 >
                     <Typography.Title level={5}>Start Location</Typography.Title>
-                    <Input type={'text'} placeholder="Start Location"
+                    <Input type={'text'} placeholder="Start Location" style={{width: '20vw'}}
                            onChange={(e) => handleStartLocationChange(e.target.value)}/>
                 </Form.Item>
 
@@ -152,7 +154,7 @@ const CreateRoutePage = () => {
                     name="endLocation"
                 >
                     <Typography.Title level={5}>End Location</Typography.Title>
-                    <Input type={'text'} placeholder="End Location"
+                    <Input type={'text'} placeholder="End Location" style={{width: '20vw'}}
                            onChange={(e) => handleEndLocationChange(e.target.value)}/>
                 </Form.Item>
 
@@ -162,6 +164,7 @@ const CreateRoutePage = () => {
                     <Typography.Title level={5}>Start Date</Typography.Title>
                     <DatePicker
                         format="YYYY-MM-DDTHH:mm"
+                        style={{width: '20vw'}}
                         showTime={{defaultValue: dayjs('00:00', 'HH:mm')}}
                         onChange={(e, day) => handleStartDateChange(day)}
                     />
@@ -172,33 +175,43 @@ const CreateRoutePage = () => {
                 >
                     <Typography.Title level={5}>End Date</Typography.Title>
                     <DatePicker
+                        style={{width: '20vw'}}
                         format="YYYY-MM-DDTHH:mm"
                         showTime={{defaultValue: dayjs('00:00', 'HH:mm')}}
                         onChange={(e, day) => handleEndDateChange(day)}
                     />
                 </Form.Item>
 
+                    </Col>
+                    <Col span={12}>
+
                 <Form.Item
                     name="availableSeats"
                 >
                     <Typography.Title level={5}>Available Seats</Typography.Title>
-                    <InputNumber min={1} max={100} defaultValue={1}
+                    <InputNumber min={1} max={100} defaultValue={1}  style={{width: '10vw'}}
                                  onChange={(e) => e && handleAvailableSeatsChange(e)}/>
                 </Form.Item>
 
                 <Form.Item
                     name="pricePerSeat"
                 >
+
                     <Typography.Title level={5}>Price Per Seat</Typography.Title>
-                    <InputNumber min={1} max={100} defaultValue={1} onChange={(e) => e && handlePricePerSeatChange(e)}/>
+                    <InputNumber prefix={'RON'}  style={{width: '10vw'}} min={1} max={100} defaultValue={1} onChange={(e) => e && handlePricePerSeatChange(e)}/>
                 </Form.Item>
 
                 <Form.Item
                     name="totalSeats"
                 >
                     <Typography.Title level={5}>Total Seats</Typography.Title>
-                    <InputNumber min={1} max={100} defaultValue={1} onChange={(e) => e && handleTotalSeatsChange(e)}/>
+                    <InputNumber  style={{width: '10vw'}} min={1} max={100} defaultValue={1} onChange={(e) => e && handleTotalSeatsChange(e)}/>
                 </Form.Item>
+
+                        </Col>
+                </Row>
+                    <Row>
+                        <Col span={24}>
 
                 <Switch onChange={handleUseRecurrence} checkedChildren="Use Recurrence"
                         unCheckedChildren="Single time route"/>
@@ -209,7 +222,7 @@ const CreateRoutePage = () => {
                             name="Recurrence No"
                         >
                             <Typography.Title level={5}>Recurrence No</Typography.Title>
-                            <Select defaultValue={1} onChange={setRecurrenceNo}>
+                            <Select defaultValue={1} onChange={setRecurrenceNo} style={{width: '10vw'}}>
                                 {Array.from({length: 100}, (_, i) => i + 1).map((value) => (
                                     <Option key={value} value={value}>
                                         {value}
@@ -222,7 +235,7 @@ const CreateRoutePage = () => {
                             name="Recurrence Type"
                         >
                             <Typography.Title level={5}>Recurrence Type</Typography.Title>
-                            <Select defaultValue="day" onChange={setRecurrenceType}>
+                            <Select defaultValue="day" onChange={setRecurrenceType} style={{width: '10vw'}}>
                                 <Option value="DAY">Day</Option>
                                 <Option value="WEEK">Week</Option>
                             </Select>
@@ -231,7 +244,7 @@ const CreateRoutePage = () => {
                         <Form.Item name="Choose days">
                             <Select
                                 mode="tags"
-                                style={{width: '100%'}}
+                                style={{width: '10vw'}}
                                 placeholder="Days..."
                                 onChange={handleChange}
                                 options={options}
@@ -294,9 +307,12 @@ const CreateRoutePage = () => {
                     )}
                 </Form.List>
 
+                        </Col>
+                    </Row>
+
 
                 <Form.Item>
-                    <Button block type="primary" htmlType="submit" shape="round">
+                    <Button block type="primary" htmlType="submit" shape={'round'}>
                         Add Route
                     </Button>
                 </Form.Item>

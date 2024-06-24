@@ -19,7 +19,7 @@ const BookingTimeline = () => {
                 <Timeline
                     mode="alternate"
                     items={booking?.map((item) => ({
-                        children: `${moment(item.startTime).format('DD.MM HH:mm')} | ${item.fromStop.location} | ${item.durationText} | ${item.distanceText}`,
+                        children: `${moment(item?.startTime).format('DD.MM HH:mm')} | ${item?.fromStop?.location} | ${item?.durationText} | ${item?.distanceText}`,
                         dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                         color: 'green',
                     }))

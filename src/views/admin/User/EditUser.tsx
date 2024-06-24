@@ -49,22 +49,22 @@ const EditUserPage = () => {
             <h2>Edit User</h2>
             <Form onFinish={handleSubmit} layout="vertical">
                 <Form.Item label="Username" required>
-                    <Input name="username" value={formData.username} disabled={true}/>
+                    <Input name="username" value={formData.username} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Name" required>
-                    <Input name="name" value={formData.name} onChange={handleInputChange}/>
+                    <Input name="name" value={formData.name} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="User Type" required>
-                    <Select value={formData.userType} disabled={true}/>
+                    <Select value={formData.userType} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Phone">
-                    <Input name="phone" value={formData.phone} onChange={handleInputChange}/>
+                    <Input name="phone" value={formData.phone} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Email">
-                    <Input name="email" value={formData.email} onChange={handleInputChange}/>
+                    <Input name="email" value={formData.email} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Form.Item label="Company">
-                    <Input name="company" value={formData.company} onChange={handleInputChange}/>
+                    <Input name="company" value={formData.company} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
                 <Button type="primary" htmlType="submit">Update User</Button>
             </Form>

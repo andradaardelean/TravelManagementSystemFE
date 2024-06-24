@@ -1,6 +1,6 @@
 import {useMutation, useQuery} from "react-query";
 import {AddRequestArgs} from "../types/interfaces/HooksArgs/AddRequestArgs";
-import {createRequest, searchRequests, solveRequest} from "../api/apis";
+import {createRequest, rejectRequest, searchRequests, solveRequest} from "../api/apis";
 import {SolveRequestArgs} from "../types/interfaces/HooksArgs/SolveRequestArgs";
 
 export const useCreateRequest = () => {
@@ -22,6 +22,7 @@ export const useGetAllRequests = (status: string) => {
         queryFn: async () => {
             return await searchRequests(status);
         },
+        staleTime: 1000 * 60 * 5,
     })
 }
 
@@ -36,4 +37,17 @@ export const useSolverRequest = () => {
     };
 
     return {mutate: solveRequestMutation};
+}
+
+export const useRejectRequest = () => {
+    const mutation = useMutation<void, unknown, string, unknown>(async (id: string) => {
+        await rejectRequest(id);
+
+    });
+
+    const rejectRequestMutation = async (id: string) => {
+        await mutation.mutateAsync(id);
+    };
+
+    return {mutate: rejectRequestMutation};
 }

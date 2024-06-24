@@ -9,8 +9,9 @@ const Home = () => {
         <UserLayout>
             <Divider orientation="center">Public Transport App</Divider>
             <Row gutter={[16, 16]}>
-                <Col span={12}>
+                <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
+                        style={{width: "70%"}}
                         hoverable
                         onClick={() => navigate('/search')}
                         className="dashboard-card"
@@ -22,8 +23,9 @@ const Home = () => {
                         />
                     </Card>
                 </Col>
-                <Col span={12}>
+                <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
+                        style={{width: "70%"}}
                         hoverable
                         onClick={() => navigate('/my-reservations')}
                         className="dashboard-card"
@@ -37,8 +39,9 @@ const Home = () => {
                 </Col>
             </Row>
             <Row gutter={[16, 16]} className="row-margin-top">
-                <Col span={12}>
+                <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
+                        style={{width: "70%"}}
                         hoverable
                         onClick={() => navigate('/search')}
                         className="dashboard-card"
@@ -50,8 +53,9 @@ const Home = () => {
                         />
                     </Card>
                 </Col>
-                <Col span={12}>
+                <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
+                        style={{width: "70%"}}
                         hoverable
                         onClick={() => navigate('/search')}
                         className="dashboard-card"

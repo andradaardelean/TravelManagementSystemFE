@@ -37,15 +37,19 @@ const dateFormat = 'YYYY-MM-DD';
 const SearchPageV2 = () => {
     const [params, setParams] = useState({
         search: "",
-        startLocation: "Cluj-Napoca",
-        endLocation: "Oradea",
+        startLocation: "Oradea",
+        endLocation: "Satu-Mare",
         startDate: moment("2024-12-18").format('YYYY-MM-DD'),
         endDate: moment("2024-12-19").format('YYYY-MM-DD'),
         passengersNo: "1",
         type: "all"
     });
 
-    const {data: routes, isLoading: isDataLoading, refetch, isFetching} = useRoutes(params);
+    const {data: routes, isLoading: isDataLoading, refetch, isFetching} = useRoutes(params, {
+        onError: (error: any) => {
+            console.log(error);
+        }
+    });
 
     const navigate = useNavigate();
 
@@ -53,8 +57,8 @@ const SearchPageV2 = () => {
 
     const getTitle = (startLocation: string, endLocation: string) => {
         return (
-            <div>
-                {startLocation} <span> -&gt; </span> {endLocation}
+            <div style={{textAlign: "center", fontWeight: "bold"}}>
+                {startLocation} <span> : </span> {endLocation}
             </div>
         )
     }
@@ -155,9 +159,6 @@ const SearchPageV2 = () => {
                             }));
                         }}
                         onSearch={(value) => {
-                            refetch();
-                        }}
-                        onClick={() => {
                             refetch();
                         }}/>
 
@@ -262,26 +263,27 @@ const SearchPageV2 = () => {
                             {routes?.map((route: SearchResult, index: number) => (
                                 <Card key={index}
                                       title={getTitle(params.startLocation, params.endLocation)}
-                                      bordered={true} hoverable
+                                      bordered={false}
                                       style={{width: "100%", marginTop: 16, justifyContent: 'center'}}>
                                     <Meta
                                         avatar={getAvatar(route.links[0].routeDTO)}
                                         title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
                                         description={<div>
-                                            Seats: {route.links[0].routeDTO.availableSeats}/{route.links[0].routeDTO.totalSeats}
+                                            Seats left: {route.links[0].routeDTO.availableSeats}
                                         </div>}
                                     />
                                     <Divider></Divider>
-                                    <p> {route.totalDistance} in {route.totalTime}</p>
-
-                                    <p>Total:
-                                        ${route.links[0].routeDTO.pricePerSeat * Number(params.passengersNo)}</p>
-                                    <Button type={"dashed"}
+                                    <div style={{ textAlign: "center"}}>
+                                        {route.totalDistance} | {route.totalTime} | ${route.links[0].routeDTO.pricePerSeat * Number(params.passengersNo)}
+                                    <br/>
+                                    <Button type={"primary"} danger
+                                            style={{marginTop: 10}}
                                             disabled={route.links[0].routeDTO.availableSeats === 0}
                                             onClick={() => {
                                                 setSelectedRoute(route);
                                                 showModal();
                                             }}>Reserve</Button>
+                                    </div>
                                 </Card>
                             ))}
                         </Space>

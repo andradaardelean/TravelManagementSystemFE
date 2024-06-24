@@ -16,7 +16,7 @@ const ApprovedRequestsTab: React.FC = () => {
                 >
                     <List.Item.Meta
                         title={`${item.id} - ${item.type}`}
-                        description={item.requestDetails}
+                        description={`${item?.company?.name} | ${item?.company?.description} | ${item?.company?.ownerName} | ${item?.company?.ownerEmail} | ${item?.company?.phone}`}
                     />
                     <div>STATUS: {item.status ?? "UNKNOWN"}</div>
                 </List.Item>

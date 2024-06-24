@@ -44,7 +44,6 @@ const CompanyRoutesPage = () => {
             title: 'End Location',
             dataIndex: 'endLocation',
             key: 'endLocation',
-            // Similar filter setup for End Location
         },
         {
             title: 'Departure',
@@ -65,6 +64,22 @@ const CompanyRoutesPage = () => {
             title: 'Available Seats',
             dataIndex: 'availableSeats',
             key: 'availableSeats',
+        },
+        {
+            title:"Action",
+            key:"action",
+            render: (text: any, record: any) => (
+                <Space size="middle">
+                    <Button style={{marginLeft: 5}} type={'default'} danger onClick={() => deleteRoute({routesDTO: record, removeAllRecursive: false}).then(() => {
+                        message.success('Route deleted successfully!');
+                        refetch();
+                    })}>Delete</Button>
+                    <Button style={{marginLeft: 5}} type={'default'} danger onClick={() => deleteRoute({routesDTO: record, removeAllRecursive: true}).then(() => {
+                        message.success('Routes deleted successfully!');
+                        refetch();
+                    })}>Delete recurrence</Button>
+                </Space>
+            )
         }
     ];
 
@@ -89,29 +104,6 @@ const CompanyRoutesPage = () => {
                 style={{marginTop: 20}}
                 pagination={{pageSize: 10}}
             />
-            <Row gutter={16} style={{marginTop: 20}}>
-                {routes?.map(route => (
-                    <Col span={8} key={route.id}>
-                        <Card
-                            title={`${route.startLocation} - ${route.endLocation}`}
-                            extra={
-                                <>
-                                    <Button danger type={'default'}
-                                            onClick={() => deleteRoute(route.id.toString()).then(() => {
-                                                message.success('Route deleted successfully!');
-                                                refetch();
-                                            })}>Delete</Button>
-                                </>}
-                            hoverable
-                        >
-                            <p>Departure: {route.startDateTime}</p>
-                            <p>Arrival: {route.endDateTime}</p>
-                            <p>Price per seat: ${route.pricePerSeat}</p>
-                            <p>Available seats: {route.availableSeats} of {route.totalSeats}</p>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
         </CompanyLayout>
     );
 }

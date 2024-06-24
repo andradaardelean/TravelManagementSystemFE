@@ -12,8 +12,8 @@ const CompanyBookingPage = () => {
     const columns = [
         {
             title: 'Id',
-            dataIndex: 'id',
             key: 'id',
+            render: (record: any) => record?.booking?.id,
         },
         {
             title: 'Type',
@@ -43,7 +43,7 @@ const CompanyBookingPage = () => {
             title: 'Actions',
             key: 'actions',
             render: (text: any, record: any) => (
-                <Button onClick={() => navigate(`/booking-timeline/${record.id}`)}>View Timeline</Button>
+                <Button onClick={() => navigate(`/booking-timeline/${record?.booking?.id}`)}>View Timeline</Button>
             ),
         },
     ];

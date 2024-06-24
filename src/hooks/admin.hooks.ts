@@ -7,5 +7,7 @@ export const useAdminStatistics = () => {
         queryFn: async () => {
             return await getAdminStatistics();
         },
+        staleTime: 1000 * 60 * 5,
+        cacheTime: 1000 * 60 * 5,
     })
 }

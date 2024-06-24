@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { message } from "antd";
+import {message} from "antd";
 
 const instance = axios.create({
     baseURL: 'https://bustravel-management-system.onrender.com/api',
@@ -8,7 +8,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     (config) => {
-        //console.log("API Req: ", config.baseURL, config.url, config.method, config.headers, config.data, config.params);
         const token = localStorage.getItem("auth0token");
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -24,16 +23,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => {
-        // console.log("API Res: ", response.status, response.statusText, response.headers, response.data)
-
         return response;
     },
     (error) => {
-        message.error(error?.response?.data?.message ?? error?.response?.data ?? error.toString());
-        console.log(error)
-        if (error?.response?.status === 401) {
-            localStorage.clear();
-            window.location.href = "/";
+        if(!window.location.href.includes("search")) {
+            message.error(error?.response?.data?.message ?? error?.response?.data ?? error.toString());
         }
         return Promise.reject(error);
     }

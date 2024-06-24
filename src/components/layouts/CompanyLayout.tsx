@@ -137,9 +137,7 @@ const CompanyLayout: React.FC<PropsWithChildren> = ({children}) => {
                 <Dropdown menu={{items}}>
                     <a onClick={(e) => e.preventDefault()} href="/">
                         <Space size={24} style={{cursor: "pointer", marginLeft: 20}}>
-                            <Badge count={1}>
                                 <Avatar shape="square" icon={<UserOutlined/>}/>
-                            </Badge>
                         </Space>
                     </a>
                 </Dropdown>

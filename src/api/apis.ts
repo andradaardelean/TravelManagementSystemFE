@@ -14,6 +14,7 @@ import {AddRequestArgs} from "../types/interfaces/HooksArgs/AddRequestArgs";
 import {Request} from "../types/interfaces/Request";
 import {SignUpArgs} from "../types/interfaces/HooksArgs/SignUpArgs";
 import {SolveRequestArgs} from "../types/interfaces/HooksArgs/SolveRequestArgs";
+import {DeleteRouteArgs} from "../types/interfaces/HooksArgs/DeleteRouteArgs";
 
 
 // AUTH
@@ -63,9 +64,11 @@ export const addRoute = async (route: AddRouteArgs) => {
     return res.data;
 }
 
-export const deleteRoute = async (routeId: string) => {
-    const ENDPOINT = `/routes/${routeId}`;
-    const res = await API.delete(ENDPOINT);
+export const deleteRoute = async (args: DeleteRouteArgs) => {
+    const ENDPOINT = `/routes`;
+    const res = await API.delete(ENDPOINT, {
+        data: args
+    });
     return res.data;
 }
 
@@ -256,8 +259,15 @@ export const searchRequests = async (status: string): Promise<Request[]> => {
 
 export const solveRequest = async (args: SolveRequestArgs) => {
     const ENDPOINT = '/requests/solve';
-    const res = await API.put(ENDPOINT, args);
+    const res = await API.post(ENDPOINT, args);
     return res.data;
+}
+
+export const rejectRequest = async (id: string) => {
+    const ENDPOINT = `/requests/reject/${id}`;
+    const res = await API.put(ENDPOINT);
+    return res.data;
+
 }
 
 // STATISTICS
