@@ -2,7 +2,7 @@ import axios from 'axios';
 import { message } from "antd";
 
 const instance = axios.create({
-    baseURL: 'https://travelmanagementsystem.onrender.com/api',
+    baseURL: 'https://bustravel-management-system.onrender.com/api',
     timeout: 10000,
 });
 
