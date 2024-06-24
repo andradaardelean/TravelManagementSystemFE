@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 
 const queryClient = new QueryClient();
 
-const redirect_uri = 'https://bustravel-management-system.onrender.com/overview';
+const redirect_uri = 'https://travelmanagementsystem.onrender.com/overview';
 
 function Fallback({ error, resetErrorBoundary }: any) {
     return (
