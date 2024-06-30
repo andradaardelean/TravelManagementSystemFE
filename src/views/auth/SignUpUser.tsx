@@ -22,6 +22,10 @@ const SignUpUser = () => {
     };
     const navigate = useNavigate();
     const handleSubmit = async () => {
+        if(!formData.username || !formData.password || !formData.email || !formData.name || !formData.phone){
+            message.error('Please fill all fields');
+            return;
+        }
         signUpMutation(formData).then(() => {
             message.success('User created successfully!' );
             navigate('/');

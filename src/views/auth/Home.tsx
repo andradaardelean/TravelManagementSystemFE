@@ -243,7 +243,7 @@ const Homepage = () => {
 
                     <div>
                         {isDataLoading || isFetching ?
-                            [1].map((i) => <Card key={i} style={{width: "100%", marginTop: 16}}
+                            [1].map((i) => <Card key={i} style={{width: "90%", marginTop: 16}}
                                                        loading={isDataLoading || isFetching}>
                                 <Meta
                                     title="Card title"
@@ -283,7 +283,7 @@ const Homepage = () => {
                                                 </div>}
                                             />
                                             <div  style={{fontSize: "16px"}}>
-                                                <span style={{ float:"left", marginRight: "500px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
+                                                <span style={{ float:"left", marginRight: "400px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
                                                 <span style={{textAlign: "center"}}>
                                                 {route.totalDistance} | {route.totalTime} |
                                                 ${(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)}
@@ -391,13 +391,13 @@ const Homepage = () => {
                             <Title level={4} style={{ color: '#fff' }}>Contact Us</Title>
                             <Text style={{ color: '#fff' }}>Email: support@transportapp.com</Text>
                             <br/>
-                            <Text style={{ color: '#fff' }}>Phone: (123) 456-7890</Text>
+                            <Text style={{ color: '#fff' }}>Phone: +40751401967</Text>
                             <br/>
-                            <Text style={{ color: '#fff' }}>Address: 123 Transport St, City, Country</Text>
+                            <Text style={{ color: '#fff' }}>Address: Cluj-Napoca, Romania</Text>
                         </div>
                     </Col>
                 </Row>
-                <div style={{marginTop: '20px', color: '#fff'}}>©2024 MyApp. All Rights Reserved.</div>
+                <div style={{marginTop: '20px', color: '#fff'}}>©2024 TravelManagementSystem. All Rights Reserved.</div>
             </Footer>
         </Layout>
     );

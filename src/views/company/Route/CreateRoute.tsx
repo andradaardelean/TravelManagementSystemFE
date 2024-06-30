@@ -212,7 +212,7 @@ const CreateRoutePage = () => {
                     name="availableSeats"
                 >
                     <Typography.Title level={5}>Available Seats</Typography.Title>
-                    <InputNumber min={1} max={100} defaultValue={1}  style={{width: '10vw'}}
+                    <InputNumber min={1} max={1000} defaultValue={1}  style={{width: '10vw'}}
                                  onChange={(e) => e && handleAvailableSeatsChange(e)}/>
                 </Form.Item>
 
@@ -221,14 +221,14 @@ const CreateRoutePage = () => {
                 >
 
                     <Typography.Title level={5}>Price Per Seat</Typography.Title>
-                    <InputNumber prefix={'RON'}  style={{width: '10vw'}} min={1} max={100} defaultValue={1} onChange={(e) => e && handlePricePerSeatChange(e)}/>
+                    <InputNumber prefix={'RON'}  style={{width: '10vw'}} min={1} max={1000} defaultValue={1} onChange={(e) => e && handlePricePerSeatChange(e)}/>
                 </Form.Item>
 
                 <Form.Item
                     name="totalSeats"
                 >
                     <Typography.Title level={5}>Total Seats</Typography.Title>
-                    <InputNumber  style={{width: '10vw'}} min={1} max={100} defaultValue={1} onChange={(e) => e && handleTotalSeatsChange(e)}/>
+                    <InputNumber  style={{width: '10vw'}} min={1} max={10000} defaultValue={1} onChange={(e) => e && handleTotalSeatsChange(e)}/>
                 </Form.Item>
 
                         </Col>

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, Form, Input, notification, Select} from "antd";
+import {Button, Form, Input, notification, Select, Typography} from "antd";
 import {useEditUser, useUser} from "../../../hooks/user.hooks";
 import {useParams} from "react-router-dom";
 import AdminLayout from "../../../components/layouts/AdminLayout";
@@ -46,7 +46,7 @@ const EditUserPage = () => {
 
     return (
         <AdminLayout>
-            <h2>Edit User</h2>
+           <Typography.Title level={2}>Edit User</Typography.Title>
             <Form onFinish={handleSubmit} layout="vertical">
                 <Form.Item label="Username" required>
                     <Input name="username" value={formData.username} style={{ width: "20vw"}}/>

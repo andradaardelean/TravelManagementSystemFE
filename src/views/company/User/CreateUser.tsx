@@ -1,6 +1,6 @@
 // Componenta CreateUser
 import {useState} from "react";
-import {Button, Form, Input, notification, Select} from "antd";
+import {Button, Form, Input, notification, Select, Typography} from "antd";
 import {useAuth} from "../../../context/AuthContext";
 import {useCreateUser} from "../../../hooks/user.hooks";
 import CompanyLayout from "../../../components/layouts/CompanyLayout";
@@ -34,7 +34,7 @@ const CreateUserPage = () => {
 
     return (
         <CompanyLayout>
-            <h2>Create User</h2>
+            <Typography.Title level={2}>Create User</Typography.Title>
             <Form onFinish={handleSubmit} layout="vertical">
                 <Form.Item label="Username" required>
                     <Input name="username" value={formData.username} onChange={handleInputChange}/>

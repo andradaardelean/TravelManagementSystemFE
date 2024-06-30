@@ -21,7 +21,7 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
     const {mutate: createRequest} = useCreateRequest();
 
     const onFinish = (values: any) => {
-        if(!values.name || !values.ownerEmail || !values.phone || !values.description){
+        if(!values.name || !values.ownerEmail || !values.phone || !values.description || !values.ownerName){
             message.error("All fields are required");
             return;
         }

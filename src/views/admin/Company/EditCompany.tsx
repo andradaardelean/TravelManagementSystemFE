@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Company} from "../../../types/interfaces/Company";
-import {Button, Form, Input, notification} from "antd";
+import {Button, Form, Input, Typography, notification} from "antd";
 import {useParams} from "react-router-dom";
 import {useCompany, useEditCompany} from "../../../hooks/company.hooks";
 import AdminLayout from "../../../components/layouts/AdminLayout";
@@ -43,7 +43,7 @@ const EditCompanyPage = () => {
 
     return (
         <AdminLayout>
-            <h2>Edit Company</h2>
+            <Typography.Title level={2}>Edit Company</Typography.Title>
             <Form onFinish={handleSubmit} layout="vertical">
                 <Form.Item label="Name" required>
                     <Input name="name" value={formData.name} onChange={handleInputChange} style={{ width: "20vw"}}/>
