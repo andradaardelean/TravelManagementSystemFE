@@ -15,7 +15,7 @@ import {
     Switch
 } from "antd";
 import {useEffect, useState} from "react";
-import {FallOutlined, RiseOutlined, StopOutlined, UserOutlined} from "@ant-design/icons";
+import {FallOutlined, RiseOutlined, StopOutlined, UserOutlined, SearchOutlined} from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import moment from "moment";
 import {useNavigate} from "react-router-dom";
@@ -151,19 +151,6 @@ const SearchPageV2 = () => {
                 </div>
             </Modal>
             <div style={{padding: 10}}>
-                <Search placeholder="Search by destination, arrival, date..." loading={isDataLoading || isFetching}
-                        enterButton
-                        size={"large"} value={params.search}
-                        onChange={(e) => {
-                            setParams((prev) => ({
-                                ...prev,
-                                search: e.target.value
-                            }));
-                        }}
-                        onSearch={(value) => {
-                            refetch();
-                        }}/>
-
                 {/* DEPARTURE */}
                 <Select
                     showSearch
@@ -239,6 +226,11 @@ const SearchPageV2 = () => {
                              }}/>
                 <Switch style={{marginLeft: 32}} onChange={handleRouteType} checkedChildren="All Routes"
                         unCheckedChildren="Shortest Route" checked={params.type === 'all'}/>
+
+                        
+                <span style={{ width: 50, height: 50, marginLeft: 30, fontSize: 22}}>
+                        <SearchOutlined onClick={() => refetch()} />
+                            </span>
             </div>
 
             <div>

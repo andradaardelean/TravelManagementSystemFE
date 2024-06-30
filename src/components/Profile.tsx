@@ -32,7 +32,6 @@ const Profile = () => {
                 </Row>
                 <Divider />
                     <Col span={16}>
-                        <Text strong>Role: </Text>{user?.userType}<br />
                         <Text strong>Name: </Text>{user?.name}<br/>
                         <Text strong>Email: </Text>{user?.email}<br/>
                         <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>
@@ -55,7 +54,6 @@ const renderCompanyProfile = () => (
                 </Row>
                 <Divider />
                     <Col span={16}>
-                        <Text strong>Role: </Text>{user?.userType}<br />
                         <Text strong>Name: </Text>{user?.name}<br/>
                         <Text strong>Email: </Text>{user?.email}<br/>
                         <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>
@@ -75,7 +73,6 @@ const renderUserProfile = () => (
                 </Col>
             </Row>
             <Divider />
-            <Text strong>Role: </Text>{user?.userType}<br />
                 <Text strong>Name: </Text>{user?.name}<br/>
                 <Text strong>Email: </Text>{user?.email}<br/>
                 <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>

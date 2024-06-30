@@ -89,11 +89,6 @@ const AdminCompanyPage = () => {
                 <Col>
                     <h1>Companies</h1>
                 </Col>
-                <Col>
-                    <Button type="primary" onClick={() => navigate("/companies/new")} style={{marginBottom: 16}}>
-                        Add Company
-                    </Button>
-                </Col>
             </Row>
             <Table dataSource={companies} columns={columns} loading={isFetching || isLoading}/>
         </AdminLayout>

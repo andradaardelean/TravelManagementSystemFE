@@ -10,12 +10,10 @@ import {SearchOutlined} from "@ant-design/icons";
 
 
 const CompanyUserPage = () => {
-    const {user} = useAuth();
+    const {user, isCompanyOwner} = useAuth();
     const {data: users, refetch, isLoading} = useUsersByCompany(user?.company ?? "");
 
     const {mutate: deleteUser} = useDeleteUser();
-
-    const [isCompanyOwner, setIsCompanyOwner] = useState(user?.username === user?.company)
 
     const columnOptions = (column: string) => {
         return {
@@ -43,13 +41,6 @@ const CompanyUserPage = () => {
             onFilter: (value: any, record: any) => record[`${column}`].toString().toLowerCase().includes(value.toLowerCase()),
         }
     }
-
-
-    useEffect(() => {
-        if (user) {
-            setIsCompanyOwner(user?.name === user?.company)
-        }
-    }, [user]);
 
     const columns: ColumnsType<User> = [
         {

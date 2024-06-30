@@ -1,11 +1,12 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
-import {User} from "../types/interfaces/User";
-import {useAuth0} from "@auth0/auth0-react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { User } from "../types/interfaces/User";
+import { useAuth0 } from "@auth0/auth0-react";
 import API from "../api/axiosWrapper";
 
 export interface AuthContextProps {
     user: User | null;
     isAuthenticated: boolean;
+    isCompanyOwner?: boolean;
 }
 
 interface AuthProviderProps {
@@ -14,11 +15,13 @@ interface AuthProviderProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
-    const {loginWithRedirect, logout} = useAuth0();
+    const { loginWithRedirect, logout } = useAuth0();
 
-    const {getAccessTokenSilently, isAuthenticated} = useAuth0();
+    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+
+    const [isCompanyOwner, setIsCompanyOwner] = useState<boolean | undefined>(undefined);
 
     const location = window.location.pathname;
 
@@ -46,9 +49,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         }
     }, [isAuthenticated, getAccessTokenSilently, location, user]);
 
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            const headers = { Authorization: `Bearer ${localStorage.getItem('auth0token')}` };
+            API.get(`/user/isOwner/${user.email}`, { headers }).then((response) => {
+                setIsCompanyOwner(response.data);
+            }).catch((e) => {
+                console.log(e);
+            });
+
+        }
+    }, [isAuthenticated, user]);
+
     return (
         <AuthContext.Provider
-            value={{user, isAuthenticated}}
+            value={{ user, isAuthenticated, isCompanyOwner }}
         >
             {children}
         </AuthContext.Provider>
