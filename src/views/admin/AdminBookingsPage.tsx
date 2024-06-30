@@ -1,28 +1,74 @@
-import {Button, Col, message, Row, Table} from "antd";
+import {Button, Col, Input, message, Row, Space, Table} from "antd";
 import {useDeleteBooking, useGetAllBookings} from "../../hooks/booking.hooks";
 import AdminLayout from "../../components/layouts/AdminLayout";
+import {SearchOutlined} from "@ant-design/icons";
 
 const AdminBookingPage = () => {
     const {data: bookings, isLoading, isFetching, refetch} = useGetAllBookings();
 
     const {mutate: cancelBooking} = useDeleteBooking();
 
+
+    const columnOptions = (column: string) => {
+        return {
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}: any) => (
+                <div style={{padding: 8}}>
+                    <Input
+                        autoFocus
+                        placeholder="Search start location"
+                        value={selectedKeys[0]}
+                        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{marginBottom: 8, display: 'block'}}
+                    />
+                    <Space>
+                        <Button onClick={() => confirm()} type="primary" icon={<SearchOutlined/>} size="small"
+                                style={{width: 90}}>
+                            Search
+                        </Button>
+                        <Button onClick={() => clearFilters()} size="small" style={{width: 90}}>
+                            Reset
+                        </Button>
+                    </Space>
+                </div>
+            ),
+            onFilter: (value: any, record: any) => record[`${column}`].toString().toLowerCase().includes(value.toLowerCase()),
+        }
+    }
+
     const columns = [
         {
             title: 'Id',
-            dataIndex: 'id',
             key: 'id',
+            render: (record: any) => record?.id,
+            ...columnOptions('id')
         },
         {
-            title: "Type",
-            dataIndex: "type",
-            key: "type",
+            title: 'Type',
+            key: 'type',
+            render: (booking: any) => booking.type,
+            ...columnOptions('type')
         },
         {
-            title: 'Passenger',
-            dataIndex: 'passengersNo',
-            key: 'passenger',
+            title: 'Passengers',
+            key: 'passengersNo',
+            render: (booking: any) => booking.passengersNo,
+            ...columnOptions('passengersNo')
         },
+        // {
+        //     title: 'From',
+        //     dataIndex: 'fromStop',
+        //     key: 'fromStop',
+        //     render: (fromStop: any) => fromStop?.location,
+        //     ...columnOptions('fromStop')
+        // },
+        // {
+        //     title: 'To',
+        //     dataIndex: 'toStop',
+        //     key: 'toStop',
+        //     render: (toStop: any) => toStop?.location,
+        //     ...columnOptions('toStop')
+        // },
         {
             title: "Action",
             key: "actions",
@@ -43,7 +89,7 @@ const AdminBookingPage = () => {
         <AdminLayout>
             <Row justify="space-between" align="middle">
                 <Col>
-                    <h1>All Bookings</h1>
+                    <h1>Bookings</h1>
                 </Col>
             </Row>
             <Table

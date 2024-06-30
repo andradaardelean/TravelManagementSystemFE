@@ -14,8 +14,6 @@ const CompanyOverview = () => {
     const {user} = useAuth();
 
     const {data: statistics, isLoading} = useCompanyStatistics(user?.company ?? "");
-
-    console.log(`statistics`, statistics)
     return (
         <CompanyLayout>
             <Divider>Overview</Divider>

@@ -12,7 +12,6 @@ const { Title, Text } = Typography;
 
 const Profile = () => {
     const { user } = useAuth();
-    const { data: activeBookings, isLoading, isError } = useBookingsByUser({ username: user?.username ?? "" });
 
     const mockProfileDetails = {
         email: "user@example.com",
@@ -22,74 +21,65 @@ const Profile = () => {
         adminNote: "Administrator access granted since 2021."
     };
 
-    const renderBookings = () => (
-        <List
-            grid={{ gutter: 16, column: 2 }}
-            dataSource={activeBookings || []}
-            renderItem={item => (
-                <List.Item>
-                    <Card title={item.bookingTitle}>
-                        <p>Booking Date: {item.date}</p>
-                        <p>Location: {item.location}</p>
-                        <p>Status: <Tag color={item.status === "Confirmed" ? "green" : "red"}>{item.status}</Tag></p>
-                    </Card>
-                </List.Item>
-            )}
-        />
-    );
-
     const renderAdminProfile = () => (
         <AdminLayout>
-            <Row gutter={16}>
-                <Col span={8}>
-                    <Avatar size={100} icon={<UserOutlined />} />
-                </Col>
-                <Col span={16}>
-                    <Title level={2}>{user?.username}</Title>
-                    <Text strong>Email: </Text>{mockProfileDetails.email}<br />
-                    <Text strong>Phone: </Text>{mockProfileDetails.phone}<br />
-                    <Text strong>Address: </Text>{mockProfileDetails.address}<br />
-                    <Divider />
-                    <Text>{mockProfileDetails.adminNote}</Text>
-                </Col>
-            </Row>
+            <div style={{padding: 50}}>
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Avatar size={100} icon={<UserOutlined />} />
+                        <Title level={3}>{user?.username}</Title>
+                    </Col>
+                </Row>
+                <Divider />
+                    <Col span={16}>
+                        <Text strong>Role: </Text>{user?.userType}<br />
+                        <Text strong>Name: </Text>{user?.name}<br/>
+                        <Text strong>Email: </Text>{user?.email}<br/>
+                        <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>
+                        <Divider/>
+                        <Text>{mockProfileDetails?.adminNote}</Text>
+                    </Col>
+            </div>
         </AdminLayout>
-    );
+);
 
-    const renderCompanyProfile = () => (
+const renderCompanyProfile = () => (
         <CompanyLayout>
-            <Row gutter={16}>
-                <Col span={8}>
-                    <Avatar size={100} icon={<UserOutlined />} />
-                </Col>
-                <Col span={16}>
-                    <Title level={2}>{user?.username}</Title>
-                    <Text strong>Email: </Text>{mockProfileDetails.email}<br />
-                    <Text strong>Phone: </Text>{mockProfileDetails.phone}<br />
-                    <Text strong>Address: </Text>{mockProfileDetails.address}<br />
-                    <Text strong>Company: </Text>{mockProfileDetails.company}<br />
-                </Col>
-            </Row>
-        </CompanyLayout>
-    );
+            <div style={{padding: 50}}>
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Avatar size={100} icon={<UserOutlined />} />
+                        <Title level={3}>{user?.username}</Title>
+                    </Col>
 
-    const renderUserProfile = () => (
+                </Row>
+                <Divider />
+                    <Col span={16}>
+                        <Text strong>Role: </Text>{user?.userType}<br />
+                        <Text strong>Name: </Text>{user?.name}<br/>
+                        <Text strong>Email: </Text>{user?.email}<br/>
+                        <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>
+                        <Text strong>Company: </Text>{user?.company ?? "N/A"}<br/>
+                    </Col>
+            </div>
+        </CompanyLayout>
+);
+
+const renderUserProfile = () => (
         <UserLayout>
+            <div style={{padding: 50}}>
             <Row gutter={16}>
                 <Col span={8}>
                     <Avatar size={100} icon={<UserOutlined />} />
-                </Col>
-                <Col span={16}>
-                    <Title level={3}>Username: {user?.username}</Title>
+                    <Title level={3}>{user?.username}</Title>
                 </Col>
             </Row>
             <Divider />
             <Text strong>Role: </Text>{user?.userType}<br />
-            <Text strong>Email: </Text>{mockProfileDetails.email}<br />
-            <Text strong>Phone: </Text>{mockProfileDetails.phone}<br />
-            <Text strong>Address: </Text>{mockProfileDetails.address}<br />
-            <Title level={4}>Bookings: {activeBookings?.length}</Title>
-            {isLoading ? <Skeleton active /> : renderBookings()}
+                <Text strong>Name: </Text>{user?.name}<br/>
+                <Text strong>Email: </Text>{user?.email}<br/>
+                <Text strong>Phone: </Text>{user?.phone ?? "N/A"}<br/>
+            </div>
         </UserLayout>
     );
 

@@ -12,11 +12,8 @@ const CompanyRoutesPage = () => {
 
     const {mutate: deleteRoute} = useDeleteRoute();
 
-    const columns = [
-        {
-            title: 'Start Location',
-            dataIndex: 'startLocation',
-            key: 'startLocation',
+    const columnOptions = (column: string) => {
+        return {
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}: any) => (
                 <div style={{padding: 8}}>
                     <Input
@@ -38,32 +35,46 @@ const CompanyRoutesPage = () => {
                     </Space>
                 </div>
             ),
-            onFilter: (value: any, record: any) => record.startLocation.toString().toLowerCase().includes(value.toLowerCase()),
+            onFilter: (value: any, record: any) => record[`${column}`].toString().toLowerCase().includes(value.toLowerCase()),
+        }
+    }
+
+    const columns = [
+        {
+            title: 'Start Location',
+            dataIndex: 'startLocation',
+            key: 'startLocation',
+    ...columnOptions('startLocation')
         },
         {
             title: 'End Location',
             dataIndex: 'endLocation',
             key: 'endLocation',
+    ...columnOptions('endLocation')
         },
         {
             title: 'Departure',
             dataIndex: 'startDateTime',
             key: 'startDateTime',
+            render: (text: any) => new Date(text).toLocaleString()
         },
         {
             title: 'Arrival',
             dataIndex: 'endDateTime',
             key: 'endDateTime',
+            render: (text: any) => new Date(text).toLocaleString()
         },
         {
             title: 'Price Per Seat',
             dataIndex: 'pricePerSeat',
             key: 'pricePerSeat',
+            ...columnOptions('pricePerSeat')
         },
         {
             title: 'Available Seats',
             dataIndex: 'availableSeats',
             key: 'availableSeats',
+            ...columnOptions('availableSeats')
         },
         {
             title:"Action",
@@ -73,10 +84,14 @@ const CompanyRoutesPage = () => {
                     <Button style={{marginLeft: 5}} type={'default'} danger onClick={() => deleteRoute({routesDTO: record, removeAllRecursive: false}).then(() => {
                         message.success('Route deleted successfully!');
                         refetch();
+                    }).catch((err) => {
+                        message.error(`Route cannot be deleted as there are active bookings.`)
                     })}>Delete</Button>
                     <Button style={{marginLeft: 5}} type={'default'} danger onClick={() => deleteRoute({routesDTO: record, removeAllRecursive: true}).then(() => {
                         message.success('Routes deleted successfully!');
                         refetch();
+                    }).catch((err) => {
+                        message.error(`Routes cannot be deleted as there are active bookings.`)
                     })}>Delete recurrence</Button>
                 </Space>
             )
@@ -87,7 +102,7 @@ const CompanyRoutesPage = () => {
         <CompanyLayout>
             <Row justify="space-between" align="middle">
                 <Col>
-                    <h1>Company Routes</h1>
+                    <h1>Routes</h1>
                 </Col>
                 <Col>
                     <Button type="primary" onClick={() => navigate("/routes/create")} style={{marginBottom: 16}}>

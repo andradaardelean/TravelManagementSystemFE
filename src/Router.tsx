@@ -15,7 +15,6 @@ const BaseRoutes = () => {
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const [isUser, setIsUser] = useState<boolean>(false);
     const [isCompany, setIsCompany] = useState<boolean>(false);
-
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
 
@@ -28,7 +27,7 @@ const BaseRoutes = () => {
         }
     }, [user, isAuthenticated]);
 
-    if (!isAuthenticated && !user && !isLoading && window.location.pathname !== "/home") {
+    if (!isAuthenticated && !user && !isLoading && window.location.pathname !== "/") {
         loginWithRedirect();
         return (
             <Routes>
@@ -36,16 +35,6 @@ const BaseRoutes = () => {
             </Routes>
         )
     }
-
-    if (window.location.pathname === "/") {
-        loginWithRedirect();
-        return (
-            <Routes>
-                {AuthRoutes()}
-            </Routes>
-        )
-    }
-
 
     if (isLoading) {
         return (

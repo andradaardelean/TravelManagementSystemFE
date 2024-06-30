@@ -131,13 +131,18 @@ const CompanyLayout: React.FC<PropsWithChildren> = ({children}) => {
                     backgroundColor: "lightblue",
                 }}
             >
-                <div className="demo-logo"/>
+                <div className="demo-logo"><img src={'original-logo.jpeg'} style={{
+                    maxWidth: "100px",
+                    maxHeight: "100px",
+                    borderRadius: "6px",
+                    marginTop: 25
+                }}></img></div>
                 <div
                     style={{marginLeft: "auto"}}>{isCompanyOwner ? `${user?.company} OWNER` : user?.username}</div>
                 <Dropdown menu={{items}}>
                     <a onClick={(e) => e.preventDefault()} href="/">
                         <Space size={24} style={{cursor: "pointer", marginLeft: 20}}>
-                                <Avatar shape="square" icon={<UserOutlined/>}/>
+                            <Avatar shape="square" icon={<UserOutlined/>}/>
                         </Space>
                     </a>
                 </Dropdown>
@@ -153,16 +158,16 @@ const CompanyLayout: React.FC<PropsWithChildren> = ({children}) => {
                     />
                 </Sider>
                 <Layout style={{padding: "0 24px 24px"}}>
-                    <Breadcrumb style={{margin: "16px 0"}}>
-                        {breadcrumb.map((item) => (
-                            <Breadcrumb.Item
-                                key={item}
-                                href={isHrefDisabled(item) ? undefined : constructHref(item)}
-                            >
-                                {item}
-                            </Breadcrumb.Item>
-                        ))}
-                    </Breadcrumb>
+                    {/*<Breadcrumb style={{margin: "16px 0"}}>*/}
+                    {/*    {breadcrumb.map((item) => (*/}
+                    {/*        <Breadcrumb.Item*/}
+                    {/*            key={item}*/}
+                    {/*            href={isHrefDisabled(item) ? undefined : constructHref(item)}*/}
+                    {/*        >*/}
+                    {/*            {item}*/}
+                    {/*        </Breadcrumb.Item>*/}
+                    {/*    ))}*/}
+                    {/*</Breadcrumb>*/}
                     <Content
                         style={{
                             padding: 24,

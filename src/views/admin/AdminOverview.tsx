@@ -11,8 +11,6 @@ const formatter = (value: number) => <CountUp end={value} separator=","/>;
 const AdminOverview = () => {
 
     const {data: statistics, isLoading} = useAdminStatistics();
-
-    console.log(`statistics`, statistics)
     return (
         <AdminLayout>
             <Divider>Overview</Divider>

@@ -1,4 +1,17 @@
-import {Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, SelectProps, Switch, Typography} from 'antd';
+import {
+    Button,
+    Col,
+    DatePicker,
+    Divider,
+    Form,
+    Input,
+    InputNumber, message,
+    Row,
+    Select,
+    SelectProps,
+    Switch,
+    Typography
+} from 'antd';
 import {useState} from 'react';
 import {useAddRoute} from "../../../hooks/routes.hooks";
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
@@ -7,6 +20,7 @@ import {useStops} from "../../../hooks/stops.hooks";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {useNavigate} from "react-router-dom";
+import CompanyLayout from "../../../components/layouts/CompanyLayout";
 
 const {Option} = Select;
 
@@ -35,10 +49,10 @@ const CreateRoutePage = () => {
             }
         }
         createRoute(data).then(() => {
-            console.log('Route created successfully!');
+            message.success('Route created successfully!');
             navigate('/routes');
         }).catch(() => {
-            console.log('Failed to create route.');
+            message.error('Failed to create route.');
         });
     };
 
@@ -89,6 +103,11 @@ const CreateRoutePage = () => {
 
     const [recurrenceType, setRecurrenceType] = useState('day');
 
+    //endDate
+    const [recurrenceEndDate, setRecurrenceEndDate] = useState('');
+    const handleRecurrenceEndDateChange = (value: string) => {
+        setRecurrenceEndDate(value);
+    };
 
     /* Stops */
     const {data: stops} = useStops();
@@ -134,13 +153,17 @@ const CreateRoutePage = () => {
         }];
 
     return (
-        <AdminLayout>
+        <CompanyLayout>
             <Typography.Title level={2}>Create Route</Typography.Title>
             <Form
                 name="route_form"
                 onFinish={onFinish}
             >
-                <Row>
+                <section>
+                    <Divider/>
+<Typography.Title level={4}>Route Information</Typography.Title>
+                <Row
+                    style={{marginTop: 20}}>
                     <Col span={12}>
                 <Form.Item
                     name="startLocation"
@@ -210,16 +233,24 @@ const CreateRoutePage = () => {
 
                         </Col>
                 </Row>
-                    <Row>
+
+                </section>
+
+                <section>
+                    <Divider/>
+                    <Typography.Title level={4}>Recurrence</Typography.Title>
+                    <Row
+                        style={{marginTop: 40}}>
                         <Col span={24}>
 
-                <Switch onChange={handleUseRecurrence} checkedChildren="Use Recurrence"
-                        unCheckedChildren="Single time route"/>
+
+                <Switch onChange={handleUseRecurrence} checkedChildren="Create Single"
+                        unCheckedChildren="Create Recurrence"/>
 
                 {useRecurrence && (
                     <>
                         <Form.Item
-                            name="Recurrence No"
+                            name="Every No"
                         >
                             <Typography.Title level={5}>Recurrence No</Typography.Title>
                             <Select defaultValue={1} onChange={setRecurrenceNo} style={{width: '10vw'}}>
@@ -232,15 +263,16 @@ const CreateRoutePage = () => {
                         </Form.Item>
 
                         <Form.Item
-                            name="Recurrence Type"
+                            name="Type"
                         >
                             <Typography.Title level={5}>Recurrence Type</Typography.Title>
-                            <Select defaultValue="day" onChange={setRecurrenceType} style={{width: '10vw'}}>
+                            <Select defaultValue="DAY" onChange={setRecurrenceType} style={{width: '10vw'}}>
                                 <Option value="DAY">Day</Option>
                                 <Option value="WEEK">Week</Option>
                             </Select>
                         </Form.Item>
 
+                        {recurrenceType === "WEEK" && (
                         <Form.Item name="Choose days">
                             <Select
                                 mode="tags"
@@ -250,10 +282,33 @@ const CreateRoutePage = () => {
                                 options={options}
                             />
                         </Form.Item>
+                            )}
+
+                        <Form.Item
+                            name="recurrenceEndDate"
+                        >
+                            <Typography.Title level={5}>End Date</Typography.Title>
+                            <DatePicker
+                                style={{width: '20vw'}}
+                                format="YYYY-MM-DDTHH:mm"
+                                showTime={{defaultValue: dayjs('00:00', 'HH:mm')}}
+                                onChange={(e, day) => handleRecurrenceEndDateChange(day)}
+                            />
+                        </Form.Item>
                     </>
                 )}
+                        </Col>
+                    </Row>
 
-                <Typography.Title level={5}>Stops</Typography.Title>
+                </section>
+
+                <section>
+                    <Divider/>
+                    <Typography.Title level={4}>Stops</Typography.Title>
+                <Row
+                    style={{marginTop: 40}}>
+                    <Col span={24}>
+
                 <Form.List
                     name="stops"
                 >
@@ -271,7 +326,7 @@ const CreateRoutePage = () => {
                                             {
                                                 required: true,
                                                 whitespace: true,
-                                                message: "Please input Stops name.",
+                                                message: "Please select a stop.",
                                             },
                                         ]}
                                         noStyle
@@ -284,12 +339,11 @@ const CreateRoutePage = () => {
                                             ))}
                                         </Select>
                                     </Form.Item>
-                                    {fields.length > 1 ? (
                                         <MinusCircleOutlined
                                             className="dynamic-delete-button"
+                                            style={{marginLeft: 20}}
                                             onClick={() => remove(field.name)}
                                         />
-                                    ) : null}
                                 </Form.Item>
                             ))}
                             <Form.Item>
@@ -317,8 +371,10 @@ const CreateRoutePage = () => {
                     </Button>
                 </Form.Item>
 
+                </section>
+
             </Form>
-        </AdminLayout>
+        </CompanyLayout>
     );
 }
 

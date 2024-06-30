@@ -2,6 +2,8 @@ import {Avatar, Button, List, Skeleton} from "antd";
 import {useAuth} from "../../../context/AuthContext";
 import {useBookingsByUser} from "../../../hooks/booking.hooks";
 import {useNavigate} from "react-router-dom";
+import moment from "moment";
+import {BookOutlined} from "@ant-design/icons";
 
 const PastTickets = () => {
     const {user} = useAuth();
@@ -21,10 +23,9 @@ const PastTickets = () => {
                             Timeline</Button>]}>
                         <Skeleton avatar title={false} loading={false} active>
                             <List.Item.Meta
-                                avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}/>}
-                                title={`Internal ID: ${item[0].booking.id}`}
-                                description={`${item[0].booking.type} | Passengers: ${item[0].booking.passengersNo}`}/>
-
+                                avatar={<BookOutlined />}
+                                title={`${item?.[0]?.fromStop?.location} -> ${item?.[item?.length - 1]?.fromStop?.location}`}
+                                description={`${item[0].booking.type} | Passengers: ${item[0].booking.passengersNo} | Date: ${moment(item[0].startTime).format("YYYY-MM-DD HH:mm")} | Duration: ${item[0].durationText} | Route: ${item?.map((l: any) => l?.fromStop?.location).join(" -> ")}`}/>
                         </Skeleton>
                     </List.Item>
                 )}

@@ -27,7 +27,7 @@ const PendingRequestsTab: React.FC = () => {
     };
     return (
         <>
-            <Modal title={`Request ${selectedRequest?.id}`}  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[null, null]}>
+            <Modal title={`Request ${selectedRequest?.id}`}  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[null, null]} centered>
                 <span style={{fontWeight: 'bold'}}>Company:</span> {`${selectedRequest?.company?.name} | ${selectedRequest?.company?.description} | ${selectedRequest?.company?.ownerName} | ${selectedRequest?.company?.ownerEmail} | ${selectedRequest?.company?.phone}`}
                 <br/>
                 <span style={{fontWeight: 'bold'}}>Type:</span> {selectedRequest?.type}

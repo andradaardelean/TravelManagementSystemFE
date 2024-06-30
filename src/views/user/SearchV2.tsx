@@ -7,6 +7,7 @@ import {
     Empty,
     Input,
     InputNumber,
+    List,
     message,
     Modal,
     Select,
@@ -108,8 +109,27 @@ const SearchPageV2 = () => {
             <Modal
                 title={`Reserve Ticket for ${selectedRoute?.links[0].routeDTO.startLocation} to ${selectedRoute?.links[0].routeDTO.endLocation}`}
                 open={open}
+                onCancel={handleCancel}
                 confirmLoading={confirmLoading}
-                footer={[null, null]}
+                centered
+                footer={[
+                    null,
+                    <Button type="primary"  onClick={() => {
+                        createBooking({
+                            booking: {
+                                id: 0,
+                                passengersNo: Number(params.passengersNo),
+                                type: "RESERVED",
+                            },
+                            links: selectedRoute?.links ?? []
+                        }).then(() => {
+                            message.success('Booking created successfully!');
+                            setConfirmLoading(true);
+                        }).catch(() => {
+                            message.error('Failed to create booking!');
+                        });
+                    }}>Confirm Booking</Button>
+                ]}
             >
                 <div>
                     <p>Please fill in your details to book your ticket.</p>
@@ -128,24 +148,6 @@ const SearchPageV2 = () => {
                     <Checkbox style={{marginBottom: 10}}>
                         I agree to the <a href="#terms">Terms and Conditions</a>
                     </Checkbox>
-                </div>
-                <div style={{display: "flex"}}>
-                    <Button onClick={handleCancel}>Cancel</Button>
-                    <Button type="primary" style={{marginLeft: "auto", float: "right"}} onClick={() => {
-                        createBooking({
-                            booking: {
-                                id: 0,
-                                passengersNo: Number(params.passengersNo),
-                                type: "RESERVED",
-                            },
-                            links: selectedRoute?.links ?? []
-                        }).then(() => {
-                            message.success('Booking created successfully!');
-                            setConfirmLoading(true);
-                        }).catch(() => {
-                            message.error('Failed to create booking!');
-                        });
-                    }}>Confirm Booking</Button>
                 </div>
             </Modal>
             <div style={{padding: 10}}>
@@ -259,38 +261,42 @@ const SearchPageV2 = () => {
                             >
                             </Empty>
                         ) :
-                        <Space style={{display: "flex", flexWrap: "wrap"}}>
-                            {routes?.map((route: SearchResult, index: number) => (
-                                <Card key={index}
-                                      title={getTitle(params.startLocation, params.endLocation)}
-                                      bordered={false}
-                                      style={{width: "100%", marginTop: 16, justifyContent: 'center'}}>
-                                    <Meta
-                                        avatar={getAvatar(route.links[0].routeDTO)}
-                                        title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
-                                        description={<div>
-                                            Seats left: {route.links[0].routeDTO.availableSeats}
-                                        </div>}
-                                    />
-                                    <Divider></Divider>
-                                    <div style={{ textAlign: "center"}}>
-                                        {route.totalDistance} | {route.totalTime} | ${route.links[0].routeDTO.pricePerSeat * Number(params.passengersNo)}
-                                    <br/>
-                                    <Button type={"primary"} danger
-                                            style={{marginTop: 10}}
-                                            disabled={route.links[0].routeDTO.availableSeats === 0}
-                                            onClick={() => {
-                                                setSelectedRoute(route);
-                                                showModal();
-                                            }}>Reserve</Button>
-                                    </div>
-                                </Card>
-                            ))}
-                        </Space>
+                            <List
+                                itemLayout="horizontal"
+                                dataSource={routes}
+                                bordered
+                                style={{marginTop: 20, padding: 40,  fontSize: "20px"}}
+                                renderItem={(route: SearchResult, index: number) => (
+                                    <List.Item  actions={[<Button type={"primary"} danger
+                                                                 style={{marginTop: 10}}
+                                                                 disabled={route.links[0].routeDTO.availableSeats === 0}
+                                                                 onClick={() => {
+                                                                     setSelectedRoute(route);
+                                                                     showModal();
+                                                                 }}>Reserve</Button>]}>
+                                        <List.Item.Meta
+                                            style={{fontSize: "20px"}}
+                                            avatar={getAvatar(route.links[0].routeDTO)}
+                                            title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
+                                            description={<div>
+                                                Seats left: {route.links[0].routeDTO.availableSeats}
+                                            </div>}
+                                        />
+                                    <div  style={{fontSize: "16px"}}>
+                                            <span style={{ float:"left", marginRight: "500px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
+                                            <span style={{textAlign: "center"}}>
+                                                {route.totalDistance} | {route.totalTime} |
+                                                ${(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)}
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </List.Item>
+                                    )}
+                                />
                 }
             </div>
         </UserLayout>
-    );
+);
 
 }
 

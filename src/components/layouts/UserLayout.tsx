@@ -113,12 +113,17 @@ const UserLayout: React.FC<PropsWithChildren> = ({children}) => {
                     backgroundColor: "lightblue",
                 }}
             >
-                <div className="demo-logo"/>
+                <div className="demo-logo"><img src={'original-logo.jpeg'} style={{
+                    maxWidth: "100px",
+                    maxHeight: "100px",
+                    borderRadius: "6px",
+                    marginTop: 25
+                }}></img></div>
                 <div style={{marginLeft: "auto", color: "white"}}>Welcome back, {user?.username ?? "N/A"}</div>
                 <Dropdown menu={{items}}>
                     <a onClick={(e) => e.preventDefault()} href="/">
                         <Space size={24} style={{cursor: "pointer", marginLeft: 20}}>
-                                <Avatar shape="square" icon={<UserOutlined/>}/>
+                            <Avatar shape="square" icon={<UserOutlined/>}/>
                         </Space>
                     </a>
                 </Dropdown>

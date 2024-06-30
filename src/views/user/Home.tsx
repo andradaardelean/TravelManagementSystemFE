@@ -42,28 +42,24 @@ const Home = () => {
                 <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
                         style={{width: "70%"}}
-                        hoverable
-                        onClick={() => navigate('/search')}
                         className="dashboard-card"
                     >
                         <Card.Meta
                             className="card-meta"
                             title={<div className="card-meta-title">Issues</div>}
-                            description={<div className="card-meta-description">Customer Support Department.</div>}
+                            description={<div className="card-meta-description">Customer Support Department. (soon)</div>}
                         />
                     </Card>
                 </Col>
                 <Col span={12} style={{ justifyContent: 'center', display: "flex"}}>
                     <Card
                         style={{width: "70%"}}
-                        hoverable
-                        onClick={() => navigate('/search')}
                         className="dashboard-card"
                     >
                         <Card.Meta
                             className="card-meta"
                             title={<div className="card-meta-title">Stay Updated</div>}
-                            description={<div className="card-meta-description">Info Section.</div>}
+                            description={<div className="card-meta-description">Info Section. (soon)</div>}
                         />
                     </Card>
                 </Col>

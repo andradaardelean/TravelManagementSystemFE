@@ -1,13 +1,13 @@
 import React from "react";
-import {Auth0Provider} from '@auth0/auth0-react';
+import { Auth0Provider } from '@auth0/auth0-react';
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import BaseRoutes from "./Router";
-import {BrowserRouter} from "react-router-dom";
-import {AuthProvider} from "./context/AuthContext";
-import {QueryClient, QueryClientProvider} from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import {Button} from "antd";
+import { Button } from "antd";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -16,6 +16,7 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 
 const redirect_uri = 'https://travelmanagementsystem.onrender.com/overview';
+//const redirect_uri = 'http://localhost:3000/overview';
 
 function Fallback({ error, resetErrorBoundary }: any) {
     return (
@@ -43,13 +44,13 @@ root.render(
             <AuthProvider>
                 <ErrorBoundary
                     FallbackComponent={Fallback}
-                    onReset={(details: any) => {
-                        console.log(details);
+                    onReset={(details) => {
+                        window.location.reload();
                     }}
                 >
-                <BrowserRouter>
-                    <BaseRoutes/>
-                </BrowserRouter>
+                    <BrowserRouter>
+                        <BaseRoutes />
+                    </BrowserRouter>
                 </ErrorBoundary>
             </AuthProvider>
         </QueryClientProvider>

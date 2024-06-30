@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const location = window.location.pathname;
 
     useEffect(() => {
-        if (isAuthenticated && location !== '/signup' && location !== '/home') {
+        if (isAuthenticated && location !== '/signup' && location !== '/') {
             getAccessTokenSilently()
                 .then((response) => {
                     localStorage.setItem('auth0token', response);
@@ -32,6 +32,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                         if (!user) {
                             API.get(`/user/by/token`).then((response2) => {
                                 setUser(response2.data);
+                            }).catch((e) => {
+                                console.log(e);
+                                logout();
                             });
                         }
                     } catch (e) {
@@ -40,7 +43,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                     }
                 })
                 .catch(console.log);
-
         }
     }, [isAuthenticated, getAccessTokenSilently, location, user]);
 

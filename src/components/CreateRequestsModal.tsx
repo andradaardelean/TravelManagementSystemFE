@@ -21,6 +21,10 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
     const {mutate: createRequest} = useCreateRequest();
 
     const onFinish = (values: any) => {
+        if(!values.name || !values.ownerEmail || !values.phone || !values.description){
+            message.error("All fields are required");
+            return;
+        }
         createRequest({
             type: "COMPANY_APPLICATION",
             company: {
@@ -33,24 +37,28 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
             }
         }).finally(() => {
             setIsModalOpen(false);
-            message.success("Request sent successfully");
+            message.success("Request sent successfully. We will get back to you soon!");
         });
     };
 
 
     return (
         <>
-            <Modal title="Make a Request" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+            <Modal title="Send us a Partnership request!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} centered
                    footer={[null, null]}>
                 <Form
                     form={form}
                     name="control-hooks"
                     onFinish={onFinish}
-                    style={{maxWidth: 500}}
+                    layout={"vertical"}
+                    style={{maxWidth: 500, minWidth: "30%", margin: "auto", padding: 30, borderRadius: 15}}
 
                 >
-                    <Form.Item name="name" label='Name'>
+                    <Form.Item name="name" label='Company Name'>
                         <Input/>
+                    </Form.Item>
+                    <Form.Item name="description" label="Company Description">
+                        <TextArea rows={2}/>
                     </Form.Item>
                     <Form.Item name="ownerName" label="Owner Name">
                         <Input/>
@@ -60,16 +68,12 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
                         <Input/>
                     </Form.Item>
 
-                    <Form.Item name="phone" label="Phone">
+                    <Form.Item name="phone" label="Owner Phone">
                         <Input/>
                     </Form.Item>
 
-                    <Form.Item name="description" label="Description">
-                        <TextArea rows={3}/>
-                    </Form.Item>
-
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" block>
+                        <Button style={{marginTop: 10}} type="primary" htmlType="submit" block shape={"round"}>
                             Send request
                         </Button>
                     </Form.Item>
@@ -77,7 +81,6 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
             </Modal>
         </>
     );
-
 }
 
 export default CreateRequestsModal;

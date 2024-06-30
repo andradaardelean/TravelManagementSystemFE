@@ -66,7 +66,7 @@ const EditUserPage = () => {
                 <Form.Item label="Company">
                     <Input name="company" value={formData.company} onChange={handleInputChange} style={{ width: "20vw"}}/>
                 </Form.Item>
-                <Button type="primary" htmlType="submit">Update User</Button>
+                <Button type="primary" htmlType="submit">Save Changes</Button>
             </Form>
         </AdminLayout>
     );

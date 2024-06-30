@@ -29,7 +29,6 @@ export const signup = async (args: SignUpArgs) => {
     const data = {
         ...args
     }
-    console.log(`data`, data)
     const res = await API.post(ENDPOINT, data);
     return res.data;
 }
@@ -102,7 +101,6 @@ export const getRoute = async (id: string): Promise<Route> => {
 
 export const getRoutesByCompany = async (company: string) => {
     const ENDPOINT = `/routes/forCompany/${company}`;
-    console.log('ENDPOINT', ENDPOINT)
     const res = await API.get(ENDPOINT);
     return res.data;
 }

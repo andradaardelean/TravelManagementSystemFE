@@ -1,4 +1,4 @@
-import {Timeline} from "antd";
+import {Skeleton, Timeline} from "antd";
 import {ClockCircleOutlined} from '@ant-design/icons';
 import UserLayout from "../../components/layouts/UserLayout";
 import {useParams} from "react-router-dom";
@@ -8,9 +8,10 @@ import moment from "moment";
 
 const BookingTimeline = () => {
     const {id} = useParams<{ id: string }>();
-    const {data: booking} = useBooking(id ?? "");
+    const {data: booking, isFetching, isLoading} = useBooking(id ?? "");
     return (
         <UserLayout>
+            <Skeleton avatar title={false} loading={isFetching || isLoading} active>
             <div>
                 <h1 style={{
                     textAlign: "center",
@@ -26,6 +27,7 @@ const BookingTimeline = () => {
                     }
                 />
             </div>
+            </Skeleton>
         </UserLayout>
     );
 }

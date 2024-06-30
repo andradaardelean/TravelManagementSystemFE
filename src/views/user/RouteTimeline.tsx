@@ -13,7 +13,7 @@ const RouteTimeline = () => {
             <Result
                 status="success"
                 title="Successfully Booked!"
-                subTitle={`Order number: ${id} Please take a look below for the timeline.`}
+                subTitle={`Order number: ${id} Please take a look below at the timeline.`}
                 extra={[
                     <div>
                         <Timeline
@@ -28,7 +28,6 @@ const RouteTimeline = () => {
                     </div>
                 ]}
             />
-
         </UserLayout>
     );
 }

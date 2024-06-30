@@ -196,3 +196,40 @@ footer {
     border-radius: 6px;
     opacity: 0.8;
 }
+
+
+.signup-pic {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.signup-pic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/public/home.jpeg');
+    background-size: cover; /* Adjusts the image to cover the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.signup-pic .form-container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    min-width: 20%;
+    opacity: 1;
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px;
+
+}

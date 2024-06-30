@@ -12,7 +12,7 @@ const AuthRoutes = () => {
             <Route path="/signup" element={<SignUpUser/>}/>
             <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/change-password/:token" element={<ChangePassword/>}/>
-            <Route path="/home" element={<Home/>}/>
+            <Route path="/" element={<Home/>}/>
         </>
     );
 };
