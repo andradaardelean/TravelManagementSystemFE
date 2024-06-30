@@ -3,7 +3,7 @@ import {
     Button,
     Card, Carousel,
     Checkbox,
-    Col, DatePicker, Empty,
+    Col, DatePicker, Divider, Empty,
     Input,
     InputNumber,
     Layout, List,
@@ -230,7 +230,14 @@ const Homepage = () => {
                                 unCheckedChildren="Shortest Route" checked={params.type === 'all'}/>
 
                         <span style={{ width: 50, height: 50, marginLeft: 30, fontSize: 22}}>
-                        <SearchOutlined onClick={() => refetch()} />
+                        <SearchOutlined onClick={() => 
+                        {
+                            if(!params.startLocation || !params.endLocation || !params.startDate || !params.endDate || !params.passengersNo) {
+                                message.error('Please fill in all the fields!');
+                                return;
+                        } else {
+                            refetch()}}}
+                          />
                             </span>
                     </div>
 
@@ -288,6 +295,8 @@ const Homepage = () => {
                                 />
                         }
                     </div>
+
+                    <Divider/>
 
                     <Row gutter={16} style={{margin: '70px 0'}}>
                         <Col span={24}>
@@ -349,6 +358,9 @@ const Homepage = () => {
                         </div>
 
                     </Carousel>
+
+                    <Divider/>
+
 
                     <Title level={3} style={{textAlign: 'center', marginBottom: '20px', marginTop: 100}}>You want to expand?</Title>
                     <Row gutter={16} style={{margin: '50px 0', justifyContent: "center"}}>

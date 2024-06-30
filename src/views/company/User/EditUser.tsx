@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Form, Input, notification, Select} from "antd";
 import {useEditUser, useUser} from "../../../hooks/user.hooks";
 import {useParams} from "react-router-dom";
@@ -18,6 +18,18 @@ const EditUserPage = () => {
         company: user?.company ?? '',
         tags: user?.tags ?? []
     });
+
+    useEffect(() => {
+        setFormData({
+            username: user?.username ?? '',
+            name: user?.name ?? '',
+            userType: user?.userType ?? UserRoles.COMPANYEMPLOYEE,
+            phone: user?.phone ?? '',
+            email: user?.email ?? '',
+            company: user?.company ?? '',
+            tags: user?.tags ?? []
+        });
+    }, [user]);
 
 
     const handleInputChange = (e: any) => {

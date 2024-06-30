@@ -27,8 +27,6 @@ export const useRoutes = (
             return await getRoutes(args);
         },
         retry: false,
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
         ...options
     })
 }
@@ -52,8 +50,6 @@ export const useRoutesByCompany = (
         queryFn: async () => {
             return await getRoutesByCompany(company);
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }
 
@@ -87,7 +83,5 @@ export const useAllRoutes = () => {
         queryFn: async () => {
             return await getAllRoutes();
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }

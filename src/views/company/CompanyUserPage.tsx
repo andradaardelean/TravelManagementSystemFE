@@ -97,7 +97,7 @@ const CompanyUserPage = () => {
         <CompanyLayout>
             <Row justify="space-between" align="middle">
                 <Col>
-                    <h1>Users</h1>
+                    <h1>Employees</h1>
                 </Col>
                 <Col>
                     {isCompanyOwner && (

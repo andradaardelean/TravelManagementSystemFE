@@ -12,7 +12,7 @@ const EditUserPage = () => {
     const [formData, setFormData] = useState({
         username: user?.username ?? '',
         name: user?.name ?? '',
-        userType: user?.userType ?? UserRoles.COMPANYEMPLOYEE,
+        userType: user?.userType,
         phone: user?.phone ?? '',
         email: user?.email ?? '',
         company: user?.company ?? '',
@@ -23,7 +23,7 @@ const EditUserPage = () => {
         setFormData({
             username: user?.username ?? '',
             name: user?.name ?? '',
-            userType: user?.userType ?? UserRoles.COMPANYEMPLOYEE,
+            userType: user?.userType,
             phone: user?.phone ?? '',
             email: user?.email ?? '',
             company: user?.company ?? '',

@@ -58,8 +58,6 @@ export const useGetAllBookings = () => {
         queryFn: async () => {
             return await getAllBookings();
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }
 
@@ -71,8 +69,6 @@ export const useBookingsByCompany = (
         queryFn: async () => {
             return await getBookingsByCompany(company);
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }
 

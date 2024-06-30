@@ -38,8 +38,6 @@ export const useUsers = () => {
         queryFn: async () => {
             return await getAllUsers();
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }
 
@@ -49,8 +47,6 @@ export const useUsersByCompany = (company: string) => {
         queryFn: async () => {
             return await getUsersByCompany(company);
         },
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
     })
 }
 

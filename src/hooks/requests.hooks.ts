@@ -22,7 +22,6 @@ export const useGetAllRequests = (status: string) => {
         queryFn: async () => {
             return await searchRequests(status);
         },
-        staleTime: 1000 * 60 * 5,
     })
 }
 
