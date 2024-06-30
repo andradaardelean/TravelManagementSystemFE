@@ -235,7 +235,7 @@ const SearchPageV2 = () => {
 
             <div>
                 {isDataLoading || isFetching ?
-                    [1, 2, 3].map((i) => <Card key={i} style={{width: "100%", marginTop: 16}}
+                    [1, 2,].map((i) => <Card key={i} style={{width: "90%", marginTop: 16}}
                                                loading={isDataLoading || isFetching}>
                         <Meta
                             title="Card title"
@@ -275,7 +275,7 @@ const SearchPageV2 = () => {
                                             </div>}
                                         />
                                     <div  style={{fontSize: "16px"}}>
-                                            <span style={{ float:"left", marginRight: "500px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
+                                            <span style={{ float:"left", marginRight: "400px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
                                             <span style={{textAlign: "center"}}>
                                                 {route.totalDistance} | {route.totalTime} |
                                                 ${(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)}
