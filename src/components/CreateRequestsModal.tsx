@@ -34,7 +34,9 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
                 ownerName: values.ownerEmail,
                 phone: values.phone,
                 description: values.description,
-            }
+            },
+            status: "",
+            requestDetails: ""
         }).finally(() => {
             setIsModalOpen(false);
             message.success("Request sent successfully. We will get back to you soon!");

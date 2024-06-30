@@ -1,6 +1,8 @@
-import {Company} from "../Company";
+import { Company } from "../Company";
 
 export interface AddRequestArgs {
     type: string;
-    company: Company
+    company: Company,
+    status: string;
+    requestDetails: string;
 }
