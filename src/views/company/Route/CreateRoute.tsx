@@ -291,8 +291,7 @@ const CreateRoutePage = () => {
                             <Typography.Title level={5}>End Date</Typography.Title>
                             <DatePicker
                                 style={{width: '20vw'}}
-                                format="YYYY-MM-DDTHH:mm"
-                                showTime={{defaultValue: dayjs('00:00', 'HH:mm')}}
+                                format="YYYY-MM-DD"
                                 onChange={(e, day) => handleRecurrenceEndDateChange(day)}
                             />
                         </Form.Item>
