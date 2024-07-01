@@ -67,7 +67,6 @@ const PendingRequestsTab: React.FC = () => {
                             title={`${item.id} - ${item.type}`}
                             description={`${item?.company?.name} | ${item?.company?.description} | ${item?.company?.ownerName} | ${item?.company?.ownerEmail} | ${item?.company?.phone}`}
                         />
-                        <div>STATUS: {item.status ?? "UNKNOWN"}</div>
                     </List.Item>
                 )}
             />

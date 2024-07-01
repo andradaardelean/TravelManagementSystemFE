@@ -13,4 +13,6 @@ export interface Route {
     availableSeats: number;
 
     totalSeats: number;
+
+    recurrenceType?: string;
 }

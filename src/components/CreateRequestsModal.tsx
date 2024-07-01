@@ -31,7 +31,7 @@ const CreateRequestsModal = ({isModalOpen, setIsModalOpen}: CreateRequestsModalP
                 id: 0,
                 name: values.name,
                 ownerEmail: values.ownerEmail,
-                ownerName: values.ownerEmail,
+                ownerName: values.ownerName,
                 phone: values.phone,
                 description: values.description,
             },

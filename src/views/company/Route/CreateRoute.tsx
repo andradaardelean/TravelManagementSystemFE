@@ -45,7 +45,8 @@ const CreateRoutePage = () => {
             recurrenceDTO: {
                 days: recurrenceDays,
                 everyNo: recurrenceNo,
-                recurrenceType: !useRecurrence ? 'NONE' : recurrenceType
+                recurrenceType: !useRecurrence ? 'NONE' : recurrenceType,
+                endDate: recurrenceEndDate,
             }
         }
         createRoute(data).then(() => {
