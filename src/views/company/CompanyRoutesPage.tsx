@@ -35,7 +35,7 @@ const CompanyRoutesPage = () => {
                     </Space>
                 </div>
             ),
-            onFilter: (value: any, record: any) => record[`${column}`].toString().toLowerCase().includes(value.toLowerCase()),
+            onFilter: (value: any, record: any) => record[${column}]?.toString()?.toLowerCase()?.includes(value?.toLowerCase()),
         }
     }
 
@@ -80,7 +80,6 @@ const CompanyRoutesPage = () => {
             title:"Recurrence",
             dataIndex:"recurrenceType",
             key:"recurrenceType",
-            render: (recurrenceType: string) => recurrenceType.toLowerCase()
         },
         {
             title: "Action",
@@ -93,14 +92,14 @@ const CompanyRoutesPage = () => {
                                 message.success('Route deleted successfully!');
                                 refetch();
                             }).catch((err) => {
-                                message.error(`Route cannot be deleted as there are active bookings.`)
+                                message.error(Route cannot be deleted as there are active bookings.)
                             })}>Delete</Button>
                             {record.recurrenceType !== 'NONE' && (
                             <Button style={{ marginLeft: 5 }} type={'default'} danger onClick={() => deleteRoute({ routesDTO: record, removeAllRecursive: true }).then(() => {
                                 message.success('Routes deleted successfully!');
                                 refetch();
                             }).catch((err) => {
-                                message.error(`Routes cannot be deleted as there are active bookings.`)
+                                message.error(Routes cannot be deleted as there are active bookings.)
                             })}>Delete recurrence</Button>
                                 )}
                         </>
