@@ -32,7 +32,7 @@ const UserLayout: React.FC<PropsWithChildren> = ({children}) => {
         const fullPath = location.pathname;
         const basePath = fullPath.split("/")[1];
         switch (basePath) {
-            case "home":
+            case "overview":
                 setSelectedKeys(["1"]);
                 break;
             case "search":
@@ -72,8 +72,8 @@ const UserLayout: React.FC<PropsWithChildren> = ({children}) => {
         {
             key: "1",
             icon: <HomeOutlined/>,
-            label: "Home",
-            onClick: () => navigate("/home"),
+            label: "Overview",
+            onClick: () => navigate("/overview"),
         },
         {
             key: "2",

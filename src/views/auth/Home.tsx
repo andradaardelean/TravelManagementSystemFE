@@ -261,38 +261,45 @@ const Homepage = () => {
                                     >
                                     </Empty>
                                 ) :
-                                <List
-                                    itemLayout="horizontal"
-                                    dataSource={routes}
-                                    bordered
-                                    style={{marginTop: 20, padding: 40,  fontSize: "20px"}}
-                                    renderItem={(route: SearchResult, index: number) => (
-                                        <List.Item  actions={[<Button type={"primary"} danger
-                                                                      style={{marginTop: 10}}
-                                                                      disabled={route.links[0].routeDTO.availableSeats === 0}
-                                                                      onClick={() => {
-                                                                          setSelectedRoute(route);
-                                                                          showModal();
-                                                                      }}>Reserve</Button>]}>
-                                            <List.Item.Meta
-                                                style={{fontSize: "20px"}}
-                                                avatar={getAvatar(route.links[0].routeDTO)}
-                                                title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
-                                                description={<div>
-                                                    Seats left: {route.links[0].routeDTO.availableSeats}
-                                                </div>}
-                                            />
-                                            <div  style={{fontSize: "16px"}}>
-                                                <span style={{ float:"left", marginRight: "400px"}}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
-                                                <span style={{textAlign: "center"}}>
-                                                {route.totalDistance} | {route.totalTime} |
-                                                ${(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)}
-                                                    <br/>
-                                            </span>
-                                            </div>
-                                        </List.Item>
-                                    )}
-                                />
+
+                            <List
+                            itemLayout="horizontal"
+                            dataSource={routes}
+                            style={{ marginTop: 20, padding: 40, fontSize: "20px" }}
+                            renderItem={(route: SearchResult, index: number) => (
+                            <List.Item
+                                actions={[
+                                    <Button
+                                        type={"primary"}
+                                        danger
+                                        style={{ marginTop: 10 }}
+                                        disabled={route.links[0].routeDTO.availableSeats === 0}
+                                        onClick={() => {
+                                            showModal();
+                                        }}
+                                    >
+                                        Reserve
+                                    </Button>
+                                ]}
+
+                                style={{ padding: 20, margin: 10, border: "1px solid #f0f0f0", borderRadius: 15 }}
+                            >
+                                <Row >
+                                    <List.Item.Meta
+                                        style={{ minWidth: "200px",fontSize: "20px"  }}
+                                        avatar={getAvatar(route.links[0].routeDTO)}
+                                        title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
+                                        description={`Seats left: ${route.links[0].routeDTO.availableSeats}`}
+                                    />
+                                    <div style={{marginLeft: 20}}>
+                                        <div>Route: {route.links?.map((l) => l?.fromStop?.location).join(" - ")} - {route.links[route.links.length - 1].toStop.location}</div>
+                                        <br/>
+                                        {route.totalDistance} | {route.totalTime} | {(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)} RON
+                                    </div>
+                                </Row>
+                            </List.Item>
+                        )}
+                    />
                         }
                     </div>
 
