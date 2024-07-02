@@ -13,25 +13,25 @@ import {
     Space,
     Switch
 } from "antd";
-import {useEffect, useState} from "react";
-import {FallOutlined, RiseOutlined, StopOutlined, UserOutlined} from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { FallOutlined, RiseOutlined, StopOutlined, UserOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import moment from "moment";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import {useStops} from "../../hooks/stops.hooks";
-import {SearchResult} from "../../types/interfaces/SeachResults";
-import {useCreateBooking} from "../../hooks/booking.hooks";
+import { useStops } from "../../hooks/stops.hooks";
+import { SearchResult } from "../../types/interfaces/SeachResults";
+import { useCreateBooking } from "../../hooks/booking.hooks";
 import UserLayout from "../../components/layouts/UserLayout";
-import {useRoutes} from "../../hooks/routes.hooks";
+import { useRoutes } from "../../hooks/routes.hooks";
 
 
-const {Search} = Input;
+const { Search } = Input;
 
 dayjs.extend(customParseFormat);
 
-const {RangePicker} = DatePicker;
+const { RangePicker } = DatePicker;
 
 const dateFormat = 'YYYY-MM-DD';
 
@@ -41,13 +41,13 @@ const SearchPage = () => {
         search: "",
         startLocation: "Cluj-Napoca",
         endLocation: "Oradea",
-        startDate: moment("2024-12-18").format('YYYY-MM-DD'),
-        endDate: moment("2024-12-19").format('YYYY-MM-DD'),
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().format('YYYY-MM-DD'),
         passengersNo: "1",
         type: "all"
     });
 
-    const {data: routes, isLoading: isDataLoading, refetch, isFetching} = useRoutes({
+    const { data: routes, isLoading: isDataLoading, refetch, isFetching } = useRoutes({
         search: searchParams.get('search') ?? "",
         startLocation: searchParams.get('startLocation') ?? "",
         endLocation: searchParams.get('endLocation') ?? "",
@@ -60,7 +60,7 @@ const SearchPage = () => {
     const navigate = useNavigate();
 
 
-    const {data: stops} = useStops();
+    const { data: stops } = useStops();
 
     const getTitle = (startLocation: string, endLocation: string) => {
         return (
@@ -88,7 +88,7 @@ const SearchPage = () => {
     const [selectedRoute, setSelectedRoute] = useState<SearchResult | undefined>(undefined);
 
 
-    const {mutate: createBooking, data: bookingId} = useCreateBooking();
+    const { mutate: createBooking, data: bookingId } = useCreateBooking();
 
     useEffect(() => {
         if (bookingId) {
@@ -98,12 +98,12 @@ const SearchPage = () => {
 
     const getAvatar = (routeDTO: any) => {
         if (routeDTO.availableSeats === 0) {
-            return <StopOutlined style={{color: "red", fontSize: "14px"}}/>
+            return <StopOutlined style={{ color: "red", fontSize: "14px" }} />
         }
         if (routeDTO.availableSeats > routeDTO.totalSeats / 2) {
-            return <FallOutlined style={{color: "green", fontSize: "14px"}}/>
+            return <FallOutlined style={{ color: "green", fontSize: "14px" }} />
         } else {
-            return <RiseOutlined style={{color: "red", fontSize: "14px"}}/>
+            return <RiseOutlined style={{ color: "red", fontSize: "14px" }} />
         }
     }
 
@@ -128,25 +128,25 @@ const SearchPage = () => {
             >
                 <div>
                     <p>Please fill in your details to book your ticket.</p>
-                    <Input placeholder="Full Name" style={{marginBottom: 10}}/>
-                    <Input placeholder="Email Address" style={{marginBottom: 10}}/>
+                    <Input placeholder="Full Name" style={{ marginBottom: 10 }} />
+                    <Input placeholder="Email Address" style={{ marginBottom: 10 }} />
                     <InputNumber
                         min={1}
                         max={10}
                         defaultValue={Number(searchParams.get('passengersNo')) ?? 1}
                         disabled={true}
-                        style={{width: '100%', marginBottom: 10}}
+                        style={{ width: '100%', marginBottom: 10 }}
                     />
-                    <Input placeholder="Credit Card Number" style={{marginBottom: 10}}/>
-                    <Input placeholder="Expiry Date (MM/YY)" style={{marginBottom: 10}}/>
-                    <Input placeholder="CVV" style={{marginBottom: 10}}/>
-                    <Checkbox style={{marginBottom: 10}}>
+                    <Input placeholder="Credit Card Number" style={{ marginBottom: 10 }} />
+                    <Input placeholder="Expiry Date (MM/YY)" style={{ marginBottom: 10 }} />
+                    <Input placeholder="CVV" style={{ marginBottom: 10 }} />
+                    <Checkbox style={{ marginBottom: 10 }}>
                         I agree to the <a href="#terms">Terms and Conditions</a>
                     </Checkbox>
                 </div>
-                <div style={{display: "flex"}}>
+                <div style={{ display: "flex" }}>
                     <Button onClick={handleCancel}>Cancel</Button>
-                    <Button type="primary" style={{marginLeft: "auto", float: "right"}} onClick={() => {
+                    <Button type="primary" style={{ marginLeft: "auto", float: "right" }} onClick={() => {
                         createBooking({
                             booking: {
                                 id: 0,
@@ -163,26 +163,26 @@ const SearchPage = () => {
                     }}>Confirm Booking</Button>
                 </div>
             </Modal>
-            <div style={{padding: 10}}>
+            <div style={{ padding: 10 }}>
                 <Search placeholder="Search by destination, arrival, date..." loading={isDataLoading || isFetching}
-                        enterButton
-                        size={"large"} value={searchParams.get('search') ?? ""}
-                        onChange={(e) => {
-                            searchParams.set('search', e.target.value)
-                            setSearchParams(searchParams)
-                        }}
-                        onSearch={(value) => {
-                            refetch();
-                        }}
-                        onClick={() => {
-                            refetch();
-                        }}/>
+                    enterButton
+                    size={"large"} value={searchParams.get('search') ?? ""}
+                    onChange={(e) => {
+                        searchParams.set('search', e.target.value)
+                        setSearchParams(searchParams)
+                    }}
+                    onSearch={(value) => {
+                        refetch();
+                    }}
+                    onClick={() => {
+                        refetch();
+                    }} />
 
 
                 {/*DEPARTURE*/}
                 <Select
                     showSearch
-                    style={{width: 200, marginTop: 10}}
+                    style={{ width: 200, marginTop: 10 }}
                     placeholder="Search a Destination"
                     optionFilterProp="children"
                     filterOption={(input, option) => (option?.label ?? '').includes(input)}
@@ -204,7 +204,7 @@ const SearchPage = () => {
                 {/*ARRIVAL*/}
                 <Select
                     showSearch
-                    style={{width: 200, marginTop: 10, marginLeft: 10}}
+                    style={{ width: 200, marginTop: 10, marginLeft: 10 }}
                     placeholder="Search a Arrival"
                     optionFilterProp="children"
                     filterOption={(input, option) => (option?.label ?? '').includes(input)}
@@ -225,7 +225,7 @@ const SearchPage = () => {
                 {/*DATE*/}
 
                 <RangePicker
-                    style={{marginTop: 10, marginLeft: 10}}
+                    style={{ marginTop: 10, marginLeft: 10 }}
                     defaultValue={[dayjs("2024-12-18", dateFormat), dayjs('2024-12-19', dateFormat)]}
                     format={dateFormat}
                     allowEmpty={[false, false]}
@@ -237,46 +237,46 @@ const SearchPage = () => {
                 />
 
                 {/*NR OF PASSENGERS*/}
-                <InputNumber min={1} max={10} addonBefore={<UserOutlined/>}
-                             style={{width: '10%', marginTop: 10, marginLeft: 10}}
-                             value={Number(searchParams.get('passengersNo'))}
-                             onChange={(e) => {
-                                 if (e) {
-                                     searchParams.set('passengersNo', e.toString())
-                                     setSearchParams(searchParams)
-                                 }
-                             }}/>
+                <InputNumber min={1} max={10} addonBefore={<UserOutlined />}
+                    style={{ width: '10%', marginTop: 10, marginLeft: 10 }}
+                    value={Number(searchParams.get('passengersNo'))}
+                    onChange={(e) => {
+                        if (e) {
+                            searchParams.set('passengersNo', e.toString())
+                            setSearchParams(searchParams)
+                        }
+                    }} />
 
                 <Switch onChange={handleRouteType} checkedChildren="All Routes"
-                        unCheckedChildren="Shortest Route"/>
+                    unCheckedChildren="Shortest Route" />
             </div>
 
             <div>
                 {isDataLoading || isFetching ?
-                    [1, 2, 3].map((i) => <Card key={i} style={{width: "100%", marginTop: 16}}
-                                               loading={isDataLoading || isFetching}>
+                    [1, 2, 3].map((i) => <Card key={i} style={{ width: "100%", marginTop: 16 }}
+                        loading={isDataLoading || isFetching}>
                         <Meta
                             title="Card title"
                             description="This is the description"
                         />
                     </Card>) :
                     !routes || routes?.length === 0 ? (
-                            <Empty
-                                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-                                imageStyle={{height: 60}}
-                                description={
-                                    <span>No routes found!
-      </span>
-                                }
-                            >
-                            </Empty>
-                        ) :
-                        <Space style={{display: "flex", flexWrap: "wrap"}}>
+                        <Empty
+                            image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                            imageStyle={{ height: 60 }}
+                            description={
+                                <span>No routes found!
+                                </span>
+                            }
+                        >
+                        </Empty>
+                    ) :
+                        <Space style={{ display: "flex", flexWrap: "wrap" }}>
                             {routes?.map((route: SearchResult, index: number) => (
                                 <Card key={index}
-                                      title={getTitle(searchParams.get('startLocation') ?? "", searchParams.get('endLocation') ?? "")}
-                                      bordered={true} hoverable
-                                      style={{width: "100%", marginTop: 16, justifyContent: 'center'}}>
+                                    title={getTitle(searchParams.get('startLocation') ?? "", searchParams.get('endLocation') ?? "")}
+                                    bordered={true} hoverable
+                                    style={{ width: "100%", marginTop: 16, justifyContent: 'center' }}>
                                     <Meta
                                         avatar={getAvatar(route.links[0].routeDTO)}
                                         title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
@@ -290,11 +290,11 @@ const SearchPage = () => {
                                     <p>Total:
                                         ${route.links[0].routeDTO.pricePerSeat * Number(searchParams.get('passengersNo'))}</p>
                                     <Button type={"dashed"}
-                                            disabled={route.links[0].routeDTO.availableSeats === 0}
-                                            onClick={() => {
-                                                setSelectedRoute(route);
-                                                showModal();
-                                            }}>Reserve</Button>
+                                        disabled={route.links[0].routeDTO.availableSeats === 0}
+                                        onClick={() => {
+                                            setSelectedRoute(route);
+                                            showModal();
+                                        }}>Reserve</Button>
                                 </Card>
                             ))}
                         </Space>
