@@ -5,14 +5,15 @@ import {
     Divider,
     Form,
     Input,
-    InputNumber, message,
+    InputNumber, InputRef, message,
     Row,
     Select,
     SelectProps,
+    Space,
     Switch,
     Typography
 } from 'antd';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useAddRoute} from "../../../hooks/routes.hooks";
 import {MinusCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import AdminLayout from "../../../components/layouts/AdminLayout";
@@ -41,7 +42,7 @@ const CreateRoutePage = () => {
                 pricePerSeat,
                 totalSeats,
             },
-            stopsDTOList: values.stops.map((stop: any) => ({location: stop})),
+            stopsDTOList: values.stops,
             recurrenceDTO: {
                 days: recurrenceDays,
                 everyNo: recurrenceNo,
@@ -152,6 +153,43 @@ const CreateRoutePage = () => {
             label: 'Sunday',
             value: '6'
         }];
+
+    const [items, setItems] = useState<any[]>(stops ?? []);
+
+    useEffect(() => {
+        if(stops?.length){
+            setItems(stops);
+        }
+    }, [stops]);
+
+    const [newLocation, setNewLocation] = useState('');
+    const [newAddress, setNewAddress] = useState('');
+    const [selectedLocations, setSelectedLocations] = useState<any>({});
+    const inputRef = useRef(null);
+
+    const handleLocationChange = (fieldKey: number, value: string) => {
+        setSelectedLocations({
+            ...selectedLocations,
+            [fieldKey]: value
+        });
+    };
+
+    const addLocation = () => {
+        if (newLocation && !items?.some(stop => stop.location === newLocation)) {
+            setItems([...items, { location: newLocation, address: '' }]);
+            setNewLocation('');
+        }
+    };
+
+    const addAddress = (location: any) => {
+        if (newAddress) {
+            setItems([...items, { location, address: newAddress }]);
+            setNewAddress('');
+        }
+    };
+
+
+
 
     return (
         <CompanyLayout>
@@ -292,6 +330,7 @@ const CreateRoutePage = () => {
                             <DatePicker
                                 style={{width: '20vw'}}
                                 format="YYYY-MM-DD"
+                                showTime={{defaultValue: dayjs('00:00', 'HH:mm')}}
                                 onChange={(e, day) => handleRecurrenceEndDateChange(day)}
                             />
                         </Form.Item>
@@ -311,33 +350,95 @@ const CreateRoutePage = () => {
 
                 <Form.List
                     name="stops"
-                >
+                >   
+    
                     {(fields, {add, remove}, {errors}) => (
                         <>
+                        <Typography.Title level={2}>PLease enter both the starting and end location with a valid address and also in the correct order!</Typography.Title>
+
                             {fields.map((field, index) => (
+                            
                                 <Form.Item
                                     required={false}
                                     key={field.key}
                                 >
                                     <Form.Item
                                         {...field}
+                                        name={[field.name, 'location']}
+                                        key={'location'}
                                         validateTrigger={['onChange', 'onBlur']}
                                         rules={[
                                             {
                                                 required: true,
-                                                whitespace: true,
-                                                message: "Please select a stop.",
+                                                message: "Please select a location.",
                                             },
                                         ]}
                                         noStyle
                                     >
-                                        <Select style={{width: '60%'}} placeholder="Select Stop">
-                                            {stops?.map((stop) => (
-                                                <Option key={stop.location} value={stop.location}>
-                                                    {stop.location}
-                                                </Option>
-                                            ))}
-                                        </Select>
+                                        <Select
+                                            style={{ width: 300 }}
+                                            placeholder="Select or Add a new Location"
+                                            onChange={(value) => handleLocationChange(field.key, value)}
+                                            dropdownRender={(menu) => (
+                                                <>
+                                                    {menu}
+                                                    <Divider style={{ margin: '8px 0' }} />
+                                                    <Space style={{ padding: '0 8px 4px' }}>
+                                                        <Input
+                                                            placeholder="Please enter location"
+                                                            ref={inputRef}
+                                                            value={newLocation}
+                                                            onChange={(e) => setNewLocation(e.target.value)}
+                                                            onKeyDown={(e) => e.stopPropagation()}
+                                                        />
+                                                        <Button type="text" icon={<PlusOutlined />} onClick={addLocation}>
+                                                            Add location
+                                                        </Button>
+                                                    </Space>
+                                                </>
+                                            )}
+                                            options={items.map((stop, index) => ({ label: stop.location, value: stop.location, key: index }))}
+                                        />
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        {...field}
+                                        name={[field.name, 'address']}
+                                        key={'address'}
+                                        validateTrigger={['onChange', 'onBlur']}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: "Please select or add an address.",
+                                            },
+                                        ]}
+                                        noStyle
+                                    >
+                                        <Select
+                                            style={{ width: 300, marginLeft: 15 }}
+                                            placeholder="Select or Add a new Address"
+                                            dropdownRender={(menu) => (
+                                                <>
+                                                    {menu}
+                                                    <Divider style={{ margin: '8px 0' }} />
+                                                    <Space style={{ padding: '0 8px 4px' }}>
+                                                        <Input
+                                                            placeholder="Please enter address"
+                                                            ref={inputRef}
+                                                            value={newAddress}
+                                                            onChange={(e) => setNewAddress(e.target.value)}
+                                                            onKeyDown={(e) => e.stopPropagation()}
+                                                        />
+                                                        <Button type="text" icon={<PlusOutlined />} onClick={() => addAddress(selectedLocations[field.key])}>
+                                                            Add address
+                                                        </Button>
+                                                    </Space>
+                                                </>
+                                            )}
+                                            options={items
+                                                .filter((stop) => stop.location === selectedLocations[field.key])
+                                                .map((stop, index) => ({ label: stop.address, value: stop.address, key: index }))}
+                                        />
                                     </Form.Item>
                                         <MinusCircleOutlined
                                             className="dynamic-delete-button"
