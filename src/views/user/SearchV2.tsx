@@ -272,7 +272,7 @@ const SearchPageV2 = () => {
                                                         passengersNo: Number(params.passengersNo),
                                                         type: "RESERVED"
                                                     },
-                                                    links: selectedRoute?.links ?? [],
+                                                    links: route?.links ?? [],
                                                 })
                                             }}
                                         >
