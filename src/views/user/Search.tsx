@@ -226,7 +226,7 @@ const SearchPage = () => {
 
                 <RangePicker
                     style={{ marginTop: 10, marginLeft: 10 }}
-                    defaultValue={[dayjs("2024-12-18", dateFormat), dayjs('2024-12-19', dateFormat)]}
+                    defaultValue={[dayjs(moment().format('YYYY-MM-DD')), dayjs(moment().format('YYYY-MM-DD'))]}
                     format={dateFormat}
                     allowEmpty={[false, false]}
                     onChange={(e, dateString) => {
