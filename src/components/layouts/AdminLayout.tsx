@@ -133,7 +133,7 @@ const AdminLayout: React.FC<PropsWithChildren> = ({children}) => {
                     borderRadius: "6px",
                     marginTop: 25
                 }}></img></div>
-                <div style={{marginLeft: "auto"}}>{user?.username}</div>
+                <div style={{marginLeft: "auto"}}>Welcome back, {user?.username}</div>
                 <Dropdown menu={{items}}>
                     <a onClick={(e) => e.preventDefault()} href="/">
                         <Space size={24} style={{cursor: "pointer", marginLeft: 20}}>

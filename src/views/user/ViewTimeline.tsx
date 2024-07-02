@@ -16,15 +16,15 @@ const BookingTimeline = () => {
                 <h1 style={{
                     textAlign: "center",
                     marginBottom: 50
-                }}>{booking?.[0].fromStop.location} - {booking?.[booking?.length - 1].toStop.location}</h1>
+                }}>{booking?.[0]?.fromStop?.location} - {booking?.[booking?.length - 1]?.toStop?.location}</h1>
                 <Timeline
                     mode="alternate"
                     items={booking?.map((item) => ({
-                        children: `${moment(item.startTime).format('DD.MM HH:mm')} | ${item.fromStop.location} | ${item.durationText} | ${item.distanceText}`,
+                        children: `${moment(item?.startTime).format('DD.MM HH:mm')} | ${item?.fromStop?.location} | ${item?.durationText} | ${item?.distanceText}`,
                         dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                         color: 'green',
                     })).concat({
-children: `${moment(booking?.[booking?.length - 1].endTime).format('DD.MM HH:mm')} | ${booking?.[booking?.length - 1].toStop.location}`,
+children: `${moment(booking?.[booking?.length - 1]?.endTime).format('DD.MM HH:mm')} | ${booking?.[booking?.length - 1]?.toStop?.location}`,
                         dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                         color: 'green',
                     })

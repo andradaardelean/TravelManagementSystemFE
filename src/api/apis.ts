@@ -184,7 +184,7 @@ export const editUser = async (user: Partial<User>) => {
 }
 
 export const addUser = async (user: User) => {
-    const ENDPOINT = '/user';
+    const ENDPOINT = '/createByAdmin';
     const res = await API.post(ENDPOINT, user);
     return res.data;
 }

@@ -20,11 +20,11 @@ const RouteTimeline = () => {
                         <Timeline
                             mode="alternate"
                             items={booking?.map((item) => ({
-                                children: `${moment(item.startTime).format('DD.MM HH:mm')}: ${item.fromStop.location}`,
+                                children: `${moment(item?.startTime).format('DD.MM HH:mm')}: ${item?.fromStop?.location}`,
                                 dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                                 color: 'green',
                             })).concat({
-                                children: `${moment(booking?.[booking?.length - 1].endTime).format('DD.MM HH:mm')} | ${booking?.[booking?.length - 1].toStop.location}`,
+                                children: `${moment(booking?.[booking?.length - 1]?.endTime).format('DD.MM HH:mm')}:  ${booking?.[booking?.length - 1]?.toStop?.location}`,
                                 dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                         color: 'green',
                         })}

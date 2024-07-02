@@ -1,10 +1,11 @@
 // Componenta CreateUser
 import {useState} from "react";
-import {Button, Form, Input, notification, Select, Typography} from "antd";
+import {Button, Form, Input, message, notification, Select, Typography} from "antd";
 import {useAuth} from "../../../context/AuthContext";
 import {useCreateUser} from "../../../hooks/user.hooks";
 import CompanyLayout from "../../../components/layouts/CompanyLayout";
 import {UserRoles} from "../../../types/constants";
+import {useNavigate} from "react-router-dom";
 
 const CreateUserPage = () => {
     const {user} = useAuth();
@@ -24,12 +25,15 @@ const CreateUserPage = () => {
 
     const {mutate: createUser} = useCreateUser();
 
+    const navigate = useNavigate();
+
     const handleSubmit = () => {
         createUser(formData).then(() => {
-            notification.success({message: 'User created successfully!'});
+            message.success('User created successfully!');
         }).catch(() => {
-            notification.error({message: 'Failed to create user.'});
-        })
+            message.error( 'Failed to create user.');
+        });
+        navigate('/users');
     };
 
     return (

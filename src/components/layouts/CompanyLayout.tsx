@@ -138,7 +138,7 @@ const CompanyLayout: React.FC<PropsWithChildren> = ({children}) => {
                     marginTop: 25
                 }}></img></div>
                 <div
-                    style={{marginLeft: "auto"}}>{isCompanyOwner ? `${user?.company} OWNER` : user?.username}</div>
+                    style={{marginLeft: "auto"}}>Welcome back, {isCompanyOwner ? `${user?.company} OWNER` : user?.username}</div>
                 <Dropdown menu={{items}}>
                     <a onClick={(e) => e.preventDefault()} href="/">
                         <Space size={24} style={{cursor: "pointer", marginLeft: 20}}>
