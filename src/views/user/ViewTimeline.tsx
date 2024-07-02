@@ -23,7 +23,11 @@ const BookingTimeline = () => {
                         children: `${moment(item.startTime).format('DD.MM HH:mm')} | ${item.fromStop.location} | ${item.durationText} | ${item.distanceText}`,
                         dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                         color: 'green',
-                    }))
+                    })).concat({
+children: `${moment(booking?.[booking?.length - 1].endTime).format('DD.MM HH:mm')} | ${booking?.[booking?.length - 1].toStop.location}`,
+                        dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
+                        color: 'green',
+                    })
                     }
                 />
             </div>

@@ -3,6 +3,7 @@ import {ClockCircleOutlined} from '@ant-design/icons';
 import UserLayout from "../../components/layouts/UserLayout";
 import {useParams} from "react-router-dom";
 import {useBooking} from "../../hooks/booking.hooks";
+import moment from "moment/moment";
 
 
 const RouteTimeline = () => {
@@ -19,11 +20,14 @@ const RouteTimeline = () => {
                         <Timeline
                             mode="alternate"
                             items={booking?.map((item) => ({
-                                children: `${item.startTime}: ${item.fromStop.location}`,
+                                children: `${moment(item.startTime).format('DD.MM HH:mm')}: ${item.fromStop.location}`,
                                 dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
                                 color: 'green',
-                            }))
-                            }
+                            })).concat({
+                                children: `${moment(booking?.[booking?.length - 1].endTime).format('DD.MM HH:mm')} | ${booking?.[booking?.length - 1].toStop.location}`,
+                                dot: <ClockCircleOutlined style={{fontSize: '16px'}}/>,
+                        color: 'green',
+                        })}
                         />
                     </div>
                 ]}

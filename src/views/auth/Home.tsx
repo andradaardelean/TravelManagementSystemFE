@@ -49,8 +49,8 @@ const Homepage = () => {
         search: "",
         startLocation: "Oradea",
         endLocation: "Satu-Mare",
-        startDate: moment("2024-12-18").format('YYYY-MM-DD'),
-        endDate: moment("2024-12-19").format('YYYY-MM-DD'),
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().format('YYYY-MM-DD'),
         passengersNo: "1",
         type: "all"
     });

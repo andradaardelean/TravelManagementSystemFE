@@ -9,7 +9,7 @@ import {
     InputNumber,
     List,
     message,
-    Modal,
+    Modal, Row,
     Select,
     Space,
     Switch
@@ -106,50 +106,50 @@ const SearchPageV2 = () => {
     return (
         <UserLayout>
             <Divider>Search</Divider>
-            <Modal
-                title={`Reserve Ticket for ${selectedRoute?.links[0].routeDTO.startLocation} to ${selectedRoute?.links[0].routeDTO.endLocation}`}
-                open={open}
-                onCancel={handleCancel}
-                confirmLoading={confirmLoading}
-                centered
-                footer={[
-                    null,
-                    <Button type="primary" onClick={() => {
-                        createBooking({
-                            booking: {
-                                id: 0,
-                                passengersNo: Number(params.passengersNo),
-                                type: "RESERVED",
-                            },
-                            links: selectedRoute?.links ?? []
-                        }).then(() => {
-                            message.success('Booking created successfully!');
-                            setConfirmLoading(true);
-                        }).catch(() => {
-                            message.error('Failed to create booking!');
-                        });
-                    }}>Confirm Booking</Button>
-                ]}
-            >
-                <div>
-                    <p>Please fill in your details to book your ticket.</p>
-                    <Input placeholder="Full Name" style={{ marginBottom: 10 }} />
-                    <Input placeholder="Email Address" style={{ marginBottom: 10 }} />
-                    <InputNumber
-                        min={1}
-                        max={10}
-                        defaultValue={Number(params.passengersNo)}
-                        disabled={true}
-                        style={{ width: '100%', marginBottom: 10 }}
-                    />
-                    <Input placeholder="Credit Card Number" style={{ marginBottom: 10 }} />
-                    <Input placeholder="Expiry Date (MM/YY)" style={{ marginBottom: 10 }} />
-                    <Input placeholder="CVV" style={{ marginBottom: 10 }} />
-                    <Checkbox style={{ marginBottom: 10 }}>
-                        I agree to the <a href="#terms">Terms and Conditions</a>
-                    </Checkbox>
-                </div>
-            </Modal>
+            {/*<Modal*/}
+            {/*    title={`Reserve Ticket for ${selectedRoute?.links[0].routeDTO.startLocation} to ${selectedRoute?.links[0].routeDTO.endLocation}`}*/}
+            {/*    open={open}*/}
+            {/*    onCancel={handleCancel}*/}
+            {/*    confirmLoading={confirmLoading}*/}
+            {/*    centered*/}
+            {/*    footer={[*/}
+            {/*        null,*/}
+            {/*        <Button type="primary" onClick={() => {*/}
+            {/*            createBooking({*/}
+            {/*                booking: {*/}
+            {/*                    id: 0,*/}
+            {/*                    passengersNo: Number(params.passengersNo),*/}
+            {/*                    type: "RESERVED",*/}
+            {/*                },*/}
+            {/*                links: selectedRoute?.links ?? []*/}
+            {/*            }).then(() => {*/}
+            {/*                message.success('Booking created successfully!');*/}
+            {/*                setConfirmLoading(true);*/}
+            {/*            }).catch(() => {*/}
+            {/*                message.error('Failed to create booking!');*/}
+            {/*            });*/}
+            {/*        }}>Confirm Booking</Button>*/}
+            {/*    ]}*/}
+            {/*>*/}
+            {/*    <div>*/}
+            {/*        <p>Please fill in your details to book your ticket.</p>*/}
+            {/*        <Input placeholder="Full Name" style={{ marginBottom: 10 }} />*/}
+            {/*        <Input placeholder="Email Address" style={{ marginBottom: 10 }} />*/}
+            {/*        <InputNumber*/}
+            {/*            min={1}*/}
+            {/*            max={10}*/}
+            {/*            defaultValue={Number(params.passengersNo)}*/}
+            {/*            disabled={true}*/}
+            {/*            style={{ width: '100%', marginBottom: 10 }}*/}
+            {/*        />*/}
+            {/*        <Input placeholder="Credit Card Number" style={{ marginBottom: 10 }} />*/}
+            {/*        <Input placeholder="Expiry Date (MM/YY)" style={{ marginBottom: 10 }} />*/}
+            {/*        <Input placeholder="CVV" style={{ marginBottom: 10 }} />*/}
+            {/*        <Checkbox style={{ marginBottom: 10 }}>*/}
+            {/*            I agree to the <a href="#terms">Terms and Conditions</a>*/}
+            {/*        </Checkbox>*/}
+            {/*    </div>*/}
+            {/*</Modal>*/}
             <div style={{ padding: 10 }}>
                 {/* DEPARTURE */}
                 <Select
@@ -256,32 +256,45 @@ const SearchPageV2 = () => {
                         <List
                             itemLayout="horizontal"
                             dataSource={routes}
-                            bordered
                             style={{ marginTop: 20, padding: 40, fontSize: "20px" }}
                             renderItem={(route: SearchResult, index: number) => (
-                                <List.Item actions={[<Button type={"primary"} danger
-                                    style={{ marginTop: 10 }}
-                                    disabled={route.links[0].routeDTO.availableSeats === 0}
-                                    onClick={() => {
-                                        setSelectedRoute(route);
-                                        showModal();
-                                    }}>Reserve</Button>]}>
-                                    <List.Item.Meta
-                                        style={{ fontSize: "20px" }}
-                                        avatar={getAvatar(route.links[0].routeDTO)}
-                                        title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
-                                        description={<div>
-                                            Seats left: {route.links[0].routeDTO.availableSeats}
-                                        </div>}
-                                    />
-                                    <div style={{ fontSize: "16px" }}>
-                                        <span style={{ float: "left", marginRight: "400px" }}>Route: {route.links?.map((l) => l?.fromStop?.location).join(" -> ")}</span>
-                                        <span style={{ textAlign: "center" }}>
-                                            {route.totalDistance} | {route.totalTime} |
-                                            ${(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)}
-                                            <br />
-                                        </span>
-                                    </div>
+                                <List.Item
+                                    actions={[
+                                        <Button
+                                            type={"primary"}
+                                            danger
+                                            style={{ marginTop: 10 }}
+                                            disabled={route.links[0].routeDTO.availableSeats === 0}
+                                            onClick={() => {
+                                                createBooking({
+                                                    booking: {
+                                                        id: 0,
+                                                        passengersNo: Number(params.passengersNo),
+                                                        type: "RESERVED"
+                                                    },
+                                                    links: selectedRoute?.links ?? [],
+                                                })
+                                            }}
+                                        >
+                                            Reserve
+                                        </Button>
+                                    ]}
+
+                                    style={{ padding: 20, margin: 10, border: "1px solid #f0f0f0", borderRadius: 15 }}
+                                >
+                                    <Row >
+                                        <List.Item.Meta
+                                            style={{ minWidth: "200px",fontSize: "20px"  }}
+                                            avatar={getAvatar(route.links[0].routeDTO)}
+                                            title={moment(route.links[0].routeDTO.startDateTime).format('YYYY-MM-DD HH:mm')}
+                                            description={`Seats left: ${route.links[0].routeDTO.availableSeats}`}
+                                        />
+                                        <div style={{marginLeft: 20}}>
+                                            <div>Route: {route.links?.map((l) => l?.fromStop?.location).join(" - ")} - {route.links[route.links.length - 1].toStop.location}</div>
+                                            <br/>
+                                            {route.totalDistance} | {route.totalTime} | {(route?.links?.[0]?.routeDTO?.pricePerSeat ?? 0) * Number(params?.passengersNo ?? 1)} RON
+                                        </div>
+                                    </Row>
                                 </List.Item>
                             )}
                         />

@@ -31,7 +31,7 @@ const AdminRoutesPage = () => {
                     </Space>
                 </div>
             ),
-            onFilter: (value: any, record: any) => record[`${column}`].toString().toLowerCase().includes(value.toLowerCase()),
+            onFilter: (value: any, record: any) => record[`${column}`]?.toString()?.toLowerCase()?.includes(value?.toLowerCase()),
         }
     }
 
@@ -79,7 +79,6 @@ const AdminRoutesPage = () => {
             title:"Recurrence",
             dataIndex:"recurrenceType",
             key:"recurrenceType",
-            // render: (recurrenceType: string) => recurrenceType.toLowerCase()
         },
         {
             title:"Action",
