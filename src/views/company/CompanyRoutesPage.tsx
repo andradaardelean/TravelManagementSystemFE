@@ -77,17 +77,10 @@ const CompanyRoutesPage = () => {
             ...columnOptions('availableSeats')
         },
         {
-            title:"Recurrence",
-            dataIndex:"recurrenceType",
-            key:"recurrenceType",
-        },
-        {
             title: "Action",
             key: "action",
             render: (text: any, record: any) => (
                 <Space size="middle">
-                    {record.startDateTime > new Date() && (
-                        <>
                             <Button style={{ marginLeft: 5 }} type={'default'} danger onClick={() => deleteRoute({ routesDTO: record, removeAllRecursive: false }).then(() => {
                                 message.success('Route deleted successfully!');
                                 refetch();
@@ -102,8 +95,6 @@ const CompanyRoutesPage = () => {
                                 message.error(`Routes cannot be deleted as there are active bookings.`)
                             })}>Delete recurrence</Button>
                                 )}
-                        </>
-                    )}
                 </Space>
             )
         }
